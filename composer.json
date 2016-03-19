@@ -1,0 +1,13 @@
+{
+  "autoload": {
+    "classmap": [
+      "utils/connection.php",
+      "lib",
+      "controllers"
+    ]
+  },
+  "require": {
+    "slim/slim": "2.*",
+    "twig/twig": "~1.5"
+  }
+}
