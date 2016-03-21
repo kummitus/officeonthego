@@ -11,3 +11,8 @@ The goal of this software is to help organizing office that is not tied to any c
 The demo machine it’s primarily made to work includes Apache web server, backend is programmed in PHP and for UI Bootstrap css-framework and JQuery js-frameworks are utilized. First MySQL is used as database but other systems might be added.
 
 [Documentation](https://github.com/kummitus/officeonthego/blob/master/doc/OfficeOnTheGoDoc.pdf)
+
+[Demo site] (https://kummitus.ovh)
+Demo credentials
+Username: test
+Password: test
