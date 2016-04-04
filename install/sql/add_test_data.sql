@@ -18,8 +18,8 @@ INSERT INTO `memberships` (`id`, `g_id`, `u_id`) VALUES
 (5, 2, 3);
 
 INSERT INTO `owners` (`id`, `name`, `phone`, `email`) VALUES
-(1, 'Isännöitsijä 1', '123456789', 'nimi@ta.fi'),
-(2, 'Isännöitsijä 2', '0987654321', 'suku@ta.fi');
+(1, 'Isännöitsijä 1', '123456789', 'nimi@firma.fi'),
+(2, 'Isännöitsijä 2', '0987654321', 'suku@firma.fi');
 
 INSERT INTO `places` (`id`, `o_id`, `address`, `city`, `maintenance`, `billingcode`) VALUES
 (1, 1, 'Finnoontie 2', 'Espoo', 'Kiinteistöhuolto Oy', '1234'),
