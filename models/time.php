@@ -2,42 +2,103 @@
   class Time {
 
     public $id;
+    public $u_id;
+    public $date;
     public $start_time;
     public $end_time;
-    public $user_id;
-    public $task_id;
+    public $t_id;
 
-    public function __construct($id, $start_time, $end_time, $user_id, $task_id) {
+    public function __construct($id, $u_id, $date, $start_time, $end_time, $t_id) {
       $this->id = $id;
+      $this->u_id = $u_id;
+      $this->date = $date;
       $this->start_time = $start_time;
       $this->end_time = $end_time;
-      $this->user_id = $user_id;
-      $this->task_id = $task_id;
+      $this->t_id = $t_id;
     }
 
     public static function all() {
+      if(!verifyLogin($_SESSION)){
+        echo "<h1 class'warning'>Not logged in</h1>";
+        return;
+      }
       $list = [];
       $db = Db::getInstance();
-      $req = $db->query('SELECT * FROM times');
-    }
-
-    foreach($req->fetchAll() as $time) {
-      $list[] = new Time($time['id'], $time['start_time'], $time['end_time'], $time['user_id'], $time['task_id']);
-    }
-
+      try{
+        $req = $db->query('SELECT times.*, times.id as tid, users.id, users.name AS uname, tasks.*, tasks.name as tname, places.* FROM times INNER JOIN users ON times.u_id=users.id INNER JOIN tasks ON times.t_id=tasks.id INNER JOIN places ON tasks.p_id=places.id');
+        foreach($req->fetchAll() as $time) {
+          $info = $time['tname'].", ".$time['address'];
+          $list[] = new Time($time['tid'], $time['uname'], $time['date'], $time['start_time'], $time['end_time'], $info);
+        }
+      }catch (PDOException $e) {
+        echo "<h1 class='warning'>Invalid operation!</h1>";
+      }
     return $list;
   }
 
   public static function find($id) {
+    if(!verifyLogin($_SESSION)){
+      echo "<h1 class'warning'>Not logged in</h1>";
+      return;
+    }
     $db = Db::getInstance();
 
     $id = intval($id);
-    $req = $db->prepare('SELECT * FROM times WHERE id = :id');
-
-    $req->execute(array('id' => $id));
-    $time = $req->fetch();
-
-    return new Time($time['id'], $time['start_time'], $time['end_time'], $time['user_id'], $time['task_id']);
+    $req = $db->prepare("SELECT times.*, times.id as tid, users.id, users.name AS uname, tasks.*, tasks.name as tname, places.* FROM times INNER JOIN users ON times.u_id=users.id INNER JOIN tasks ON times.t_id=tasks.id INNER JOIN places ON tasks.p_id=places.id WHERE times.id=:id");
+    try{
+      $req->execute(array('id' => $id));
+      $time = $req->fetch();
+      $info = $time['tname'].", ".$time['address'];
+      return new Time($time['tid'], $time['uname'], $time['date'], $time['start_time'], $time['end_time'], $info );
+    }catch (PDOException $e) {
+      echo "<h1 class='warning'>Invalid operation!</h1>";
+    }
   }
+
+  public static function create($u_id, $date, $start_time, $end_time, $t_id) {
+    if(!verifyLogin($_SESSION)){
+      echo "<h1 class'warning'>Not logged in</h1>";
+      return;
+    }
+    $db = Db::getInstance();
+    try{
+      $req = $db->query("INSERT INTO times (u_id, date, start_time, end_time, t_id) VALUES ($u_id, '$date', '$start_time', '$end_time', $t_id)");
+    }catch (PDOException $e) {
+      echo "<h1 class='warning'>Invalid operation!</h1>";
+    }
+  }
+
+  public static function update($id, $u_id, $date, $start_time, $end_time, $t_id) {
+    if(!verifyLogin($_SESSION)){
+      echo "<h1 class'warning'>Not logged in</h1>";
+      return;
+    }
+    $db = Db::getInstance();
+    $id = intval($id);
+    try{
+      $req = $db->query("UPDATE times SET u_id=$u_id, date='$date', start_time='$start_time', end_time='$end_time', t_id=$t_id WHERE id=$id");
+    }catch (PDOException $e) {
+      echo "<h1 class='warning'>Invalid operation!</h1>";
+    }
+  }
+
+  public static function delete($id) {
+    if(!verifyLogin($_SESSION)){
+      echo "<h1 class'warning'>Not logged in</h1>";
+      return;
+    }else if(!hasAdminRights($_SESSION)){
+      echo "<h1 class='warning'>Unallowed operation</h1>";
+      return;
+    }
+    $db = Db::getInstance();
+
+    $id = intval($id);
+    try{
+      $req = $db->query("DELETE FROM times WHERE id='$id'");
+    }catch (PDOException $e) {
+      echo "<h1 class='warning'>Invalid operation!</h1>";
+    }
+  }
+}
 
 ?>

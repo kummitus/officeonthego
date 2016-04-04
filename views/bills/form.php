@@ -1,5 +1,5 @@
 <form method="post" action="?controller=bills&action=create" enctype="multipart/form-data">
-  <div class="input-group">
+  <div class="form-group">
     <input type="number" class="form-control hidden" name="id" value="<?php echo $bill->id; ?>">
   </div>
   <div class="form-group">
@@ -10,23 +10,31 @@
       <?php } ?>
     </select>
   </div>
-  <div class="input-group">
-    <span class="input-group-addon">Company</span>
+  <div class="form-group">
+  <label>Task</label>
+    <select name="t_id" class="form-control">
+      <?php foreach($tasks as $task) { ?>
+        <option value="<?php echo $task->id; ?>" <?php if($task->id == $bill->t_id) { echo "selected='selected'"; } ?>><?php echo $task->name; ?> </option>
+      <?php } ?>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Company</label>
     <input type="text" class="form-control" name="company" value="<?php echo $bill->company; ?>">
   </div>
-  <div class="input-group">
-    <span class="input-group-addon">Sum</span>
+  <div class="form-group">
+    <label>Sum</label>
     <input type="text" class="form-control" name="sum" value="<?php echo $bill->sum; ?>">
   </div>
-  <div class="input-group">
-    <span class="input-group-addon">Info</span>
+  <div class="form-group">
+    <label>Info</label>
     <input type="text" class="form-control" name="info" value="<?php echo $bill->info; ?>">
   </div>
-  <div class="input-group">
+  <div class="form-group">
     <label>Choose image</label>
     <input type="file" name="fileToUpload" id="fileToUpload">
   </div>
-  <div class="input-group">
+  <div class="form-group">
     <button type="submit" class="btn btn-primary">Add</button>
   </div>
 </form>

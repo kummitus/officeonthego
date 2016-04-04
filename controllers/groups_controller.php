@@ -1,20 +1,24 @@
 <?php
     class GroupsController {
       public function index() {
+        allowedMethodCall($_SESSION);
         $groups = Group::all();
         require_once('views/groups/index.php');
       }
 
       public function show() {
+        allowedMethodCall($_SESSION);
         if (!isset($_GET['id'])) {
           return call('pages', 'error');
         }
+        $tasks = Task::findGroupTasks($_GET['id']);
         $members = Group::findMembers($_GET['id']);
         $group = Group::find($_GET['id']);
         require_once('views/groups/show.php');
       }
 
       public function form() {
+        allowedMethodCall($_SESSION);
         $users = User::all();
         if(isset($_GET['id'])){
           $group = Group::find($_GET['id']);
@@ -23,6 +27,7 @@
       }
 
       public function create() {
+        allowedMethodCall($_SESSION);
         if(!isset($_POST['name']) || !isset($_POST['info']) || !isset($_POST['a_id'])) {
           return call('pages', 'error');
         }
@@ -36,6 +41,7 @@
       }
 
       public function delete() {
+        allowedMethodCall($_SESSION);
         if (!isset($_GET['id'])) {
           return call('pages', 'error');
         }
@@ -45,6 +51,7 @@
       }
 
       public function join() {
+        allowedMethodCall($_SESSION);
         $users = User::all();
         $group = Group::find($_GET['g_id']);
         require_once('views/groups/join.php');

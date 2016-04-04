@@ -1,11 +1,13 @@
 <?php
     class OwnersController {
       public function index() {
+        allowedMethodCall($_SESSION);
         $owners = Owner::all();
         require_once('views/owners/index.php');
       }
 
     public function show() {
+      allowedMethodCall($_SESSION);
       if (!isset($_GET['id'])) {
         return call('pages', 'error');
       }
@@ -15,6 +17,7 @@
     }
 
     public function delete() {
+      allowedMethodCall($_SESSION);
       if (!isset($_GET['id'])) {
         return call('pages', 'error');
       }
@@ -24,6 +27,7 @@
     }
 
     public function form() {
+      allowedMethodCall($_SESSION);
       if(isset($_GET['id'])){
         $owner = Owner::find($_GET['id']);
       }
@@ -31,6 +35,7 @@
     }
 
     public function create() {
+      allowedMethodCall($_SESSION);
       if(!isset($_POST['name'])) {
         return call('pages', 'error');
       }

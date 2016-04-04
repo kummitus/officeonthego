@@ -8,10 +8,6 @@
     } ?>">
   </div>
   <div class="form-group">
-    <label>Name</label>
-    <input type="text" class="form-control" name="name" value="<?php echo $group->name; ?>">
-  </div>
-  <div class="form-group">
     <label>Manager</label>
     <select name="o_id" class="form-control">
       <?php foreach($owners as $owner) { ?>

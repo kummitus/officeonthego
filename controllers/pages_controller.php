@@ -1,8 +1,14 @@
 <?php
   class PagesController {
     public function home() {
-      $dun = 'jea';
-      require_once('views/pages/home.php');
+      if(allowedMethodCall($_SESSION)){
+        $group = Membership::getGroupByUserId($_SESSION['user']);
+        $task = Task::current($group);
+        require_once('views/tasks/showcurrent.php');
+        require_once("views/times/formforhome.php");
+      }else{
+        require_once('views/pages/home.php');
+      }
     }
 
     public function error() {

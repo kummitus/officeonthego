@@ -3,7 +3,7 @@
 <h3>Active Tasks</h3>
 <table class="table table-striped table-bordered">
   <thead>
-    <tr><th>Name</th><th>Group</th><th></th></tr>
+    <tr><th>Name</th><th>Group</th><th><th></th></th></tr>
   </thead>
   <tbody>
 <?php foreach($tasks as $task) {
@@ -16,7 +16,9 @@
   <td>
     <?php echo $task->g_id; ?>
   </td>
-  <td><a href='/?controller=tasks&action=show&id=<?php echo $task->id; ?>'>See task</a></td></tr>
+  <td><a href='/?controller=tasks&action=show&id=<?php echo $task->id; ?>'>See task</a></td>
+  <td><a href='/?controller=tasks&action=toggleactivity&id=<?php echo $task->id; ?>'>Toggle Activity</a></td>
+</tr>
 <?php }
 }  ?>
   </tbody>
@@ -25,7 +27,7 @@
 <h3>Retired tasks</h3>
 <table class="table table-striped table-bordered">
   <thead>
-    <tr><th>Name</th><th>Group</th><th></th></tr>
+    <tr><th>Name</th><th>Group</th><th></th><th></th></tr>
   </thead>
   <tbody>
 <?php foreach($tasks as $task) {
@@ -38,7 +40,8 @@
   <td>
     <?php echo $task->g_id; ?>
   </td>
-  <td><a href='/?controller=tasks&action=show&id=<?php echo $task->id; ?>'>See task</a></td></tr>
+  <td><a href='/?controller=tasks&action=show&id=<?php echo $task->id; ?>'>See task</a></td>
+  <td><a href='/?controller=tasks&action=toggleactivity&id=<?php echo $task->id; ?>'>Toggle Activity</a></td></tr>
 <?php }
 }  ?>
   </tbody>

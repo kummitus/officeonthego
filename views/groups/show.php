@@ -13,6 +13,27 @@
   </tbody>
 </table>
 <br>
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr><th>Name</th><th>Location</th><th></th></tr>
+  </thead>
+  <tbody>
+<?php foreach ($tasks as $task) { ?>
+    <tr>
+      <td>
+        <?php echo $task->name; ?>
+      </td>
+      <td>
+        <?php echo $task->p_id; ?>
+      </td>
+      <td>
+        <a href="/?controller=tasks&action=show&id=<?php echo $task->id?>">Show task</a>
+      </td>
+    <tr>
+<?php } ?>
+  </tbody>
+<table>
+
 <a href="/?controller=groups&action=delete&id=<?php echo $group->id ?>"><div class="btn btn-danger">Delete</div></a>
 <a href="/?controller=groups&action=form&id=<?php echo $group->id ?>"><div class="btn btn-default">Update</div></a>
 <a href="/?controller=groups&action=join&g_id=<?php echo $group->id ?>"><div class="btn btn-default">Add member</div></a>

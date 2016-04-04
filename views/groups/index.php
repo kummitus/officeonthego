@@ -3,7 +3,7 @@
 <h3>Active groups</h3>
 <table class="table table-striped table-bordered">
   <thead>
-    <tr><th>Name</th><th>show</th><th></th></tr>
+    <tr><th>Name</th><th>show</th></tr>
   </thead>
   <tbody>
 <?php foreach($groups as $group) {
@@ -11,9 +11,12 @@
   ?>
   <tr>
     <td>
-  <?php echo $group->name; ?></td><td>
+  <?php echo $group->name; ?>
   </td>
-  <td><a href='/?controller=groups&action=show&id=<?php echo $group->id; ?>'>See group</a></td></tr>
+  <td>
+    <a href='/?controller=groups&action=show&id=<?php echo $group->id; ?>'>See group</a>
+  </td>
+</tr>
 <?php }
 }  ?>
   </tbody>
@@ -22,7 +25,7 @@
 <h3>Retired groups</h3>
 <table class="table table-striped table-bordered">
   <thead>
-    <tr><th>Name</th><th>show</th><th></th></tr>
+    <tr><th>Name</th><th>show</th></tr>
   </thead>
   <tbody>
 <?php foreach($groups as $group) {
@@ -30,9 +33,12 @@
   ?>
   <tr>
     <td>
-  <?php echo $group->name; ?></td><td>
+  <?php echo $group->name; ?>
   </td>
-  <td><a href='/?controller=groups&action=show&id=<?php echo $group->id; ?>'>See group</a></td></tr>
+  <td>
+    <a href='/?controller=groups&action=show&id=<?php echo $group->id; ?>'>See group</a>
+  </td>
+</tr>
 <?php }
 }  ?>
   </tbody>

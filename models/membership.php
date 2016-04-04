@@ -10,16 +10,46 @@
     }
 
     public static function create($u_id, $g_id) {
+      if(!verifyLogin($_SESSION)){
+        return;
+      }
       $db = Db::getInstance();
-
-      $req = $db->query("INSERT INTO memberships (g_id, u_id) VALUES ('$g_id', '$u_id')");
+      try{
+        $req = $db->query("INSERT INTO memberships (g_id, u_id) VALUES ('$g_id', '$u_id')");
+      }catch (PDOException $e) {
+        echo "<h1 class='warning'>Invalid operation!</h1>";
+      }
     }
 
     public static function leave($u_id, $g_id) {
+      if(!verifyLogin($_SESSION)){
+        return;
+      }
       $db = Db::getInstance();
 
       $id = intval($id);
-      $req = $db->query("DELETE FROM memberships WHERE u_id=$u_id AND g_id=$g_id");
+      try{
+        $req = $db->query("DELETE FROM memberships WHERE u_id=$u_id AND g_id=$g_id");
+      }catch (PDOException $e) {
+        echo "<h1 class='warning'>Invalid operation!</h1>";
+      }
+    }
+
+    public static function getGroupByUserId($id){
+      if(!verifyLogin($_SESSION)){
+        return;
+      }
+      $db = Db::getInstance();
+      $db1 = Db::getInstance();
+      $id = intval($id);
+      try{
+        $req = $db->query("SELECT * FROM memberships INNER JOIN groups ON memberships.g_id=groups.id WHERE u_id=$id AND active=1 LIMIT 1");
+        $group = $req->fetch();
+        return $group['g_id'];
+      }catch (PDOException $e){
+        echo "<h1 class='warning'>Invalid operation! Query from memberships</h1>";
+        return;
+      }
     }
   }
 ?>

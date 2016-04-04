@@ -1,6 +1,7 @@
 <?php
   class MembershipsController {
     public function create() {
+      allowedMethodCall($_SESSION);
       if(!isset($_POST['u_id']) || !isset($_POST['g_id'])) {
         return call('pages', 'error');
       }
@@ -10,6 +11,7 @@
 
 
     public function leave() {
+      allowedMethodCall($_SESSION);
       if (!isset($_GET['u_id']) || !isset($_GET['g_id'])) {
         return call('pages', 'error');
       }

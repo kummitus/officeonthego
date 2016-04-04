@@ -16,6 +16,9 @@
       }
 
       public static function all() {
+        if(!verifyLogin($_SESSION)){
+          return;
+        }
         $list = [];
         $db = Db::getInstance();
         $req = $db->query("SELECT * FROM groups");
@@ -28,6 +31,9 @@
       }
 
       public static function allactive() {
+        if(!verifyLogin($_SESSION)){
+          return;
+        }
         $list = [];
         $db = Db::getInstance();
         $req = $db->query("SELECT * FROM groups WHERE active=1");
@@ -40,6 +46,9 @@
       }
 
       public static function find($id) {
+        if(!verifyLogin($_SESSION)){
+          return;
+        }
         $db = Db::getInstance();
 
         $id = intval($id);
@@ -52,10 +61,16 @@
       }
 
       public static function findMembers($id) {
+        if(!verifyLogin($_SESSION)){
+          return;
+        }
         $list = [];
         $db = Db::getInstance();
-        $req = $db->query("SELECT memberships.id, memberships.u_id, users.id, users.name, memberships.g_id FROM memberships INNER JOIN users on memberships.u_id=users.id WHERE memberships.g_id='$id'");
-
+        try{
+          $req = $db->query("SELECT memberships.id, memberships.u_id, users.id, users.name, memberships.g_id FROM memberships INNER JOIN users on memberships.u_id=users.id WHERE memberships.g_id='$id'");
+        }catch (PDOException $e) {
+          echo "<h1 class='warning'>Invalid operation!</h1>";
+        }
         foreach($req->fetchAll() as $member) {
           $list[] = new User($member['id'], $member['name'], $member['password']);
         }
@@ -64,22 +79,41 @@
       }
 
       public static function create($a_id, $name, $info) {
+        if(!verifyLogin($_SESSION)){
+          return;
+        }
         $db = Db::getInstance();
-
-        $req = $db->query("INSERT INTO groups (a_id, name, info, active) VALUES ('$a_id', '$name', '$info', true)");
+        try{
+          $req = $db->query("INSERT INTO groups (a_id, name, info, active) VALUES ('$a_id', '$name', '$info', true)");
+        }catch (PDOException $e) {
+          echo "<h1 class='warning'>Invalid operation!</h1>";
+        }
       }
 
       public static function update($id, $a_id, $name, $info, $active) {
+        if(!verifyLogin($_SESSION)){
+          return;
+        }
         $db = Db::getInstance();
-
-        $req = $db->query("UPDATE groups SET a_id=$a_id, name='$name', info='$info', active=$active WHERE id=$id");
+        try{
+          $req = $db->query("UPDATE groups SET a_id=$a_id, name='$name', info='$info', active=$active WHERE id=$id");
+        }catch (PDOException $e) {
+          echo "<h1 class='warning'>Invalid operation!</h1>";
+        }
       }
 
       public static function delete($id) {
+        if(!verifyLogin($_SESSION)){
+          return;
+        }
         $db = Db::getInstance();
 
         $id = intval($id);
-        $req = $db->query("DELETE FROM groups WHERE id='$id'");
+        try{
+          $req = $db->query("DELETE FROM groups WHERE id='$id'");
+        }catch (PDOException $e) {
+          echo "<h1 class='warning'>Invalid operation!</h1>";
+        }
       }
   }
 ?>

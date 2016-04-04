@@ -1,11 +1,20 @@
 <?php
   class UsersController {
+
     public function index() {
+      if(!verifyLogin($_SESSION)){
+        echo "<h1 class'warning'>Not logged in</h1>";
+        return;
+      }
       $users = User::all();
       require_once('views/users/index.php');
     }
 
     public function show() {
+      if(!verifyLogin($_SESSION)){
+        echo "<h1 class'warning'>Not logged in</h1>";
+        return;
+      }
       if (!isset($_GET['id'])) {
         return call('pages', 'error');
       }
@@ -14,6 +23,10 @@
     }
 
     public function delete() {
+      if(!verifyLogin($_SESSION)){
+        echo "<h1 class'warning'>Not logged in</h1>";
+        return;
+      }
       if (!isset($_GET['id'])) {
         return call('pages', 'error');
       }
@@ -23,6 +36,10 @@
     }
 
     public function form() {
+      if(!verifyLogin($_SESSION)){
+        echo "<h1 class'warning'>Not logged in</h1>";
+        return;
+      }
       if(isset($_GET['id'])){
         $user = User::find($_GET['id']);
       }
@@ -30,6 +47,10 @@
     }
 
     public function create() {
+      if(!verifyLogin($_SESSION)){
+        echo "<h1 class'warning'>Not logged in</h1>";
+        return;
+      }
       if(!isset($_POST['name']) || !isset($_POST['password'])) {
         return call('pages', 'error');
       }
@@ -50,11 +71,12 @@
 
       $user = User::authenticate($_POST['name'], $_POST['password']);
       if(!$user){
-        header("Location: ?controller=users&action=login");
+        header("Location: /");
       } else {
         $_SESSION['user'] = $user->id;
         $_SESSION['username'] = $user->name;
-        header("Location: ?controller=users&action=index");
+        $_SESSION['adminlevel'] = $user->adminlevel;
+        header("Location: ?controller=pages&action=home");
       }
     }
 
@@ -63,6 +85,24 @@
       $_SESSION['username'] = null;
       session_unset();
       session_destroy();
+      header("Location: ?controller=pages&action=home");
+    }
+
+    public function toggleadmin() {
+      if(!verifyLogin($_SESSION)){
+        echo "<h1 class'warning'>Not logged in</h1>";
+        return;
+      }
+      if(!hasAdminRights($_SESSION)){
+        if($_SESSION['user'] != $user->id){
+          $user = User::find($_GET['id']);
+          if($user->adminlevel == 0){
+            User::update($user->id, $user->name, $user->password, 1);
+          }else{
+            User::update($user->id, $user->name, $user->password, 0);
+          }
+        }
+      }
       header("Location: ?controller=users&action=index");
     }
   }
