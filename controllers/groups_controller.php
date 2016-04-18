@@ -28,8 +28,10 @@
 
       public function create() {
         allowedMethodCall($_SESSION);
-        if(!isset($_POST['name']) || !isset($_POST['info']) || !isset($_POST['a_id'])) {
-          return call('pages', 'error');
+        if(strlen($_POST['name'])<4 || !isset($_POST['a_id'])) {
+          echo "Please fill in the form";
+          $this->form();
+          return;
         }
         if(0 > $_POST['id']) {
           Group::create($_POST['a_id'], $_POST['name'], $_POST['info']);

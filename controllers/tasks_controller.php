@@ -31,8 +31,10 @@
 
     public function create() {
       allowedMethodCall($_SESSION);
-      if(!isset($_POST['name']) || !isset($_POST['info']) || !isset($_POST['g_id']) || !isset($_POST['p_id'])) {
-        return call('pages', 'error');
+      if(strlen($_POST['name'])<3 || strlen($_POST['info'])<3 || !isset($_POST['g_id']) || !isset($_POST['p_id'])) {
+        echo "Please fill in the form";
+        $this->form();
+        return;
       }
       if(is_numeric($_POST['id'])){
         Task::create($_POST['g_id'], $_POST['p_id'], $_POST['name'], $_POST['info']);
@@ -45,7 +47,9 @@
     public function delete() {
       allowedMethodCall($_SESSION);
       if (!isset($_GET['id'])) {
-        return call('pages', 'error');
+        echo "Please fill in the form";
+        $this->form();
+        return;
       }
       Task::delete($_GET['id']);
       $tasks = Task::all();
@@ -55,7 +59,9 @@
     public function toggleactivity() {
       allowedMethodCall($_SESSION);
       if (!isset($_GET['id'])) {
-        return call('pages', 'error');
+        echo "Please fill in the form";
+        $this->form();
+        return;
       }
       $task = Task::find($_GET['id']);
       if($task->active == 1){
@@ -70,7 +76,9 @@
     public function addpic() {
       allowedMethodCall($_SESSION);
       if (!isset($_GET['id'])) {
-        return call('pages', 'error');
+        echo "Please fill in the form";
+        $this->form();
+        return;
       }
       $task = intval($_GET['id']);
       require_once('views/tasks/addpic.php');

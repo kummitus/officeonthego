@@ -97,7 +97,7 @@
         return;
       }
       if(!isset($g_id) || !isset($p_id) || !isset($name) || !isset($info)){
-        call('pages', 'error');
+        
       }
 
       $db = Db::getInstance();

@@ -27,8 +27,10 @@
 
     public function create() {
       allowedMethodCall($_SESSION);
-      if(!isset($_POST['address']) || !isset($_POST['billingcode']) || !isset($_POST['o_id'])) {
-        return call('pages', 'error');
+      if(strlen($_POST['address'])<5 || strlen($_POST['billingcode'])<4) {
+        echo "Please fill in the form";
+        $this->form();
+        return;
       }
       if(0 > $_POST['id']) {
         Place::create($_POST['o_id'], $_POST['address'], $_POST['city'], $_POST['maintenance'], $_POST['billingcode']);

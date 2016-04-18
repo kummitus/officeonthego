@@ -94,5 +94,23 @@
         echo "<h1 class='warning'>Invalid operation!</h1>";
       }
     }
+
+    public static function companies() {
+      if(!verifyLogin($_SESSION)){
+        return;
+      }
+      $list = [];
+      $db = Db::getInstance();
+      try{
+        $req = $db->query("SELECT DISTINCT company FROM bills");
+      }catch (PDOException $e) {
+        echo "<h1 class='warning'>Invalid operation!</h1>";
+      }
+      foreach($req->fetchAll() as $company) {
+        $list[] = $company['company'];
+      }
+
+      return $list;
+    }
   }
 ?>

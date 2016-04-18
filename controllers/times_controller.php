@@ -31,7 +31,9 @@
     public function create() {
       allowedMethodCall($_SESSION);
       if(!isset($_POST['date']) || !isset($_POST['start_time']) || !isset($_POST['end_time']) || !isset($_POST['t_id'])) {
-        return call('pages', 'error');
+        echo "Please fill in the form";
+        $this->form();
+        return;
       }
       if(isset($_POST['members'])){
         foreach($_POST['members'] as $u_id){

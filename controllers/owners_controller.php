@@ -36,8 +36,10 @@
 
     public function create() {
       allowedMethodCall($_SESSION);
-      if(!isset($_POST['name'])) {
-        return call('pages', 'error');
+      if(strlen($_POST['name'])<4) {
+        echo "Please fill in the form";
+        $this->form();
+        return;
       }
       if(null == $_POST['id']) {
         Owner::create($_POST['name'], $_POST['phone'], $_POST['email']);

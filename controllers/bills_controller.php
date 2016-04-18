@@ -3,6 +3,7 @@
       public function index() {
         allowedMethodCall($_SESSION);
         $bills = Bill::all();
+        $companies = Bill::companies();
         require_once('views/bills/index.php');
       }
 
@@ -22,13 +23,16 @@
         if(isset($_GET['id'])){
           $bill = Bill::find($_GET['id']);
         }
+        $companies = Bill::companies();
         require_once('views/bills/form.php');
       }
 
       public function create() {
         allowedMethodCall($_SESSION);
-        if(!isset($_POST['company']) || !isset($_POST['info']) || !isset($_POST['sum']) || !isset($_POST['date'])) {
-          return call('pages', 'error');
+        if(strlen($_POST['company'])<5 || !isset($_POST['info']) || intval($_POST['sum'])<1 || !isset($_POST['date'])) {
+          echo "Please fill in the form";
+          $this->form();
+          return;
         }
         if(null == $_POST['id']) {
           $params = Bill::create($_POST['u_id'],$_POST['company'], $_POST['sum'], $_POST['info'], $_POST['date']);

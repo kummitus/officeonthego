@@ -60,8 +60,21 @@
       echo "<h1 class'warning'>Not logged in</h1>";
       return;
     }
+    require_once($_SERVER['DOCUMENT_ROOT'].'lib/validators.php');
+    $errors = [];
     $date1 = date_create($date);
     $date = date_format($date1, 'Y-m-d');
+    if(!checkdate($date)){
+      $errors[] = "Check date format";
+    }
+    if(testTime($start_time)){
+      $errors[] = "Check start time";
+    }
+    if(testTime($end_time)){
+      $errors[] = "Check end time";
+    }
+
+
     $db = Db::getInstance();
     try{
       $req = $db->prepare("INSERT INTO times (u_id, date, start_time, end_time, t_id) VALUES (:u_id, :date, :start_time, :end_time, :t_id)");

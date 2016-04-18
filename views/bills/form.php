@@ -7,7 +7,12 @@
   </div>
   <div class="form-group">
     <label class="trn">Company</label>
-    <input type="text" class="form-control" name="company" value="<?php echo $bill->company; ?>">
+    <input type="text" class="form-control" list="companyname" name="company" value="<?php echo $bill->company; ?>">
+    <datalist id="companyname">
+      <?php foreach($companies as $company){ ?>
+        <option value="<?php echo $company; ?>">
+      <?php } ?>
+    </datalist>
   </div>
   <div class="form-group">
     <label class="trn">Sum</label>
