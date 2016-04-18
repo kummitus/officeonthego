@@ -1,9 +1,7 @@
-<p> All groups </p>
-
-<h3>Active groups</h3>
+<h3 class="trn">Active groups</h3>
 <table class="table table-striped table-bordered">
   <thead>
-    <tr><th>Name</th><th>show</th></tr>
+    <tr><th class="trn">Name</th><th class="trn">show</th></tr>
   </thead>
   <tbody>
 <?php foreach($groups as $group) {
@@ -14,7 +12,7 @@
   <?php echo $group->name; ?>
   </td>
   <td>
-    <a href='/?controller=groups&action=show&id=<?php echo $group->id; ?>'>See group</a>
+    <a href='/?controller=groups&action=show&id=<?php echo $group->id; ?>' class="trn">See group</a>
   </td>
 </tr>
 <?php }
@@ -22,10 +20,10 @@
   </tbody>
 </table>
 
-<h3>Retired groups</h3>
+<h3 class="trn">Retired groups</h3>
 <table class="table table-striped table-bordered">
   <thead>
-    <tr><th>Name</th><th>show</th></tr>
+    <tr><th class="trn">Name</th><th class="trn">show</th></tr>
   </thead>
   <tbody>
 <?php foreach($groups as $group) {
@@ -36,7 +34,7 @@
   <?php echo $group->name; ?>
   </td>
   <td>
-    <a href='/?controller=groups&action=show&id=<?php echo $group->id; ?>'>See group</a>
+    <a href='/?controller=groups&action=show&id=<?php echo $group->id; ?>' class="trn">See group</a>
   </td>
 </tr>
 <?php }
@@ -44,4 +42,4 @@
   </tbody>
 </table>
 <br>
-<a href="/?controller=groups&action=form"><div class="btn btn-default">Create group</div></a>
+<a href="/?controller=groups&action=form"><div class="btn btn-default trn">Create group</div></a>

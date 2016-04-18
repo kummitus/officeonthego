@@ -4,7 +4,7 @@
   </div>
 
   <div class="form-group">
-    <label>User</label>
+    <label class="trn">User</label>
     <select name="u_id" class="form-control">
       <?php foreach($users as $user) { ?>
         <option value="<?php echo $user->id; ?>"><?php echo $user->name; ?> </option>
@@ -12,6 +12,6 @@
     </select>
   </div>
   <div class="form-group">
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary trn">Submit</button>
   </div>
 </form>

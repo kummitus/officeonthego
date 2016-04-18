@@ -2,39 +2,38 @@
   <div class="form-group">
     <input type="number" class="form-control hidden" name="id" value="<?php echo $bill->id; ?>">
   </div>
-  <div class="form-group">
-    <label>Name</label>
-    <select name="a_id" class="form-control">
-      <?php foreach($users as $user) { ?>
-        <option value="<?php echo $user->id; ?>" <?php if($user->id == $bill->u_id) { echo "selected='selected'"; } ?>><?php echo $user->name; ?> </option>
-      <?php } ?>
-    </select>
+  <div class="form-group hidden">
+    <input type="number" class="form-control" name="u_id" value="<?php echo $_SESSION['user']; ?>">
   </div>
   <div class="form-group">
-  <label>Task</label>
-    <select name="t_id" class="form-control">
-      <?php foreach($tasks as $task) { ?>
-        <option value="<?php echo $task->id; ?>" <?php if($task->id == $bill->t_id) { echo "selected='selected'"; } ?>><?php echo $task->name; ?> </option>
-      <?php } ?>
-    </select>
-  </div>
-  <div class="form-group">
-    <label>Company</label>
+    <label class="trn">Company</label>
     <input type="text" class="form-control" name="company" value="<?php echo $bill->company; ?>">
   </div>
   <div class="form-group">
-    <label>Sum</label>
+    <label class="trn">Sum</label>
     <input type="text" class="form-control" name="sum" value="<?php echo $bill->sum; ?>">
   </div>
   <div class="form-group">
-    <label>Info</label>
+    <label class="trn">Info</label>
     <input type="text" class="form-control" name="info" value="<?php echo $bill->info; ?>">
   </div>
   <div class="form-group">
-    <label>Choose image</label>
-    <input type="file" name="fileToUpload" id="fileToUpload">
+    <label class="trn">Date</label>
+    <input type="text" id="datepicker" class="form-control" name="date" value="<?php echo date('m/d/y'); ?>">
+  <div class="form-group">
+    <label class="trn">Choose image</label>
+    <input type="file" name="image" id="image">
   </div>
   <div class="form-group">
-    <button type="submit" class="btn btn-primary">Add</button>
+    <button type="submit" class="btn btn-primary trn">Add</button>
   </div>
 </form>
+
+<script>
+$(function() {
+  $( "#datepicker" ).datepicker({
+    firstDay: 1
+  });
+  $( "#datepicker" ).attr( 'readOnly' , 'true' );
+});
+</script>

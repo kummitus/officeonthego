@@ -12,8 +12,10 @@
       if (!isset($_GET['id'])) {
         return call('pages', 'error');
       }
-
+      $id = intval($_GET['id']);
+      $images = Image::getImages($id, 0);
       $task = Task::find($_GET['id']);
+      $time = Time::getTaskHours($task->id);
       require_once('views/tasks/show.php');
     }
 
@@ -29,10 +31,6 @@
 
     public function create() {
       allowedMethodCall($_SESSION);
-      require 'utils/kint/Kint.class.php';
-      Kint::trace();
-              Kint::dump( $_SERVER );
-              Kint::dump( $_POST );
       if(!isset($_POST['name']) || !isset($_POST['info']) || !isset($_POST['g_id']) || !isset($_POST['p_id'])) {
         return call('pages', 'error');
       }
@@ -61,12 +59,38 @@
       }
       $task = Task::find($_GET['id']);
       if($task->active == 1){
-        Task::toggleactive($task->id);
+        Task::toggleinactive($_GET['id']);
       }else{
-        Task::toggleinactive($task->id);
+        Task::toggleactive($_GET['id']);
       }
-      $groups = Task::all();
+      $tasks = Task::all();
       require_once('views/tasks/index.php');
+    }
+
+    public function addpic() {
+      allowedMethodCall($_SESSION);
+      if (!isset($_GET['id'])) {
+        return call('pages', 'error');
+      }
+      $task = intval($_GET['id']);
+      require_once('views/tasks/addpic.php');
+    }
+
+    public function insertpic(){
+      allowedMethodCall($_SESSION);
+
+      $params['o_id'] = intval($_POST['o_id']);
+      $params['comment'] = $_POST['comment'];
+      $files = $_FILES;
+      Image::insertpictask($params, $files);
+      header("Location: ?controller=tasks&action=show&id=".$params);
+    }
+
+    public function removepic(){
+      allowedMethodCall($_SESSION);
+
+      Image::removepic($_GET['picid']);
+      header("Location: ?controller=tasks&action=show&id=".$_GET['id']);
     }
 
   }

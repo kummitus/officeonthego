@@ -30,16 +30,29 @@
 
     public function create() {
       allowedMethodCall($_SESSION);
-      if(!isset($_POST['u_id']) || !isset($_POST['date']) || !isset($_POST['start_time']) || !isset($_POST['end_time']) || !isset($_POST['t_id'])) {
+      if(!isset($_POST['date']) || !isset($_POST['start_time']) || !isset($_POST['end_time']) || !isset($_POST['t_id'])) {
         return call('pages', 'error');
       }
-      if(null == $_POST['id']) {
-        Time::create($_POST['u_id'], $_POST['date'], $_POST['start_time'], $_POST['end_time'], $_POST['t_id']);
+      if(isset($_POST['members'])){
+        foreach($_POST['members'] as $u_id){
+          $u_id = intval($u_id);
+          if(null == $_POST['id']) {
+            Time::create($u_id, $_POST['date'], $_POST['start_time'], $_POST['end_time'], $_POST['t_id']);
+          } else {
+            Time::update($_POST['id'], $u_id, $_POST['date'], $_POST['start_time'], $_POST['end_time'], $_POST['t_id']);
+          }
+        }
         header("Location: ?controller=times&action=index");
-      } else {
-        Time::update($_POST['id'], $_POST['u_id'], $_POST['date'], $_POST['start_time'], $_POST['end_time'], $_POST['t_id']);
-        header("Location: ?controller=times&action=show&id=".urlencode($_POST['id']));
+      }else{
+        if(null == $_POST['id']) {
+          Time::create($_POST['u_id'], $_POST['date'], $_POST['start_time'], $_POST['end_time'], $_POST['t_id']);
+          header("Location: ?controller=pages&action=home");
+        } else {
+          Time::update($_POST['id'], $_POST['u_id'], $_POST['date'], $_POST['start_time'], $_POST['end_time'], $_POST['t_id']);
+          header("Location: ?controller=times&action=show&id=".urlencode($_POST['id']));
+        }
       }
+      header("Location: ?controller=pages&action=home");
     }
 
     public function delete() {

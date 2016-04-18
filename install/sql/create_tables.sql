@@ -82,6 +82,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `name` (`name`)
 );
 
+CREATE TABLE IF NOT EXISTS `images` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `o_id` int(11),
+  `type` int(11),
+  `image_path` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
 ALTER TABLE `bills`
   ADD CONSTRAINT `bills_ibfk_1` FOREIGN KEY (`u_id`) REFERENCES `users` (`id`);
 

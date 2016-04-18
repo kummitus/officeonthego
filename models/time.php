@@ -25,7 +25,7 @@
       $list = [];
       $db = Db::getInstance();
       try{
-        $req = $db->query('SELECT times.*, times.id as tid, users.id, users.name AS uname, tasks.*, tasks.name as tname, places.* FROM times INNER JOIN users ON times.u_id=users.id INNER JOIN tasks ON times.t_id=tasks.id INNER JOIN places ON tasks.p_id=places.id');
+        $req = $db->query('SELECT times.*, times.id as tid, users.id, users.name AS uname, tasks.*, tasks.name as tname, places.* FROM times INNER JOIN users ON times.u_id=users.id INNER JOIN tasks ON times.t_id=tasks.id INNER JOIN places ON tasks.p_id=places.id ORDER BY times.date, times.end_time DESC');
         foreach($req->fetchAll() as $time) {
           $info = $time['tname'].", ".$time['address'];
           $list[] = new Time($time['tid'], $time['uname'], $time['date'], $time['start_time'], $time['end_time'], $info);
@@ -60,11 +60,14 @@
       echo "<h1 class'warning'>Not logged in</h1>";
       return;
     }
+    $date1 = date_create($date);
+    $date = date_format($date1, 'Y-m-d');
     $db = Db::getInstance();
     try{
-      $req = $db->query("INSERT INTO times (u_id, date, start_time, end_time, t_id) VALUES ($u_id, '$date', '$start_time', '$end_time', $t_id)");
+      $req = $db->prepare("INSERT INTO times (u_id, date, start_time, end_time, t_id) VALUES (:u_id, :date, :start_time, :end_time, :t_id)");
+      $req->execute(array('u_id' => $u_id, 'date' => $date, 'start_time' => $start_time, 'end_time' => $end_time, 't_id' => $t_id));
     }catch (PDOException $e) {
-      echo "<h1 class='warning'>Invalid operation!</h1>";
+      echo "<h1 class='warning'>Invalid operation creating time!</h1>";
     }
   }
 
@@ -76,7 +79,8 @@
     $db = Db::getInstance();
     $id = intval($id);
     try{
-      $req = $db->query("UPDATE times SET u_id=$u_id, date='$date', start_time='$start_time', end_time='$end_time', t_id=$t_id WHERE id=$id");
+      $req = $db->prepare("UPDATE times SET u_id=:u_id, date=:date, start_time=:start_time, end_time=:end_time, t_id=:t_id WHERE id=:id");
+      $req->execute(array('u_id' => $u_id, 'date' => $date, 'start_time' => $start_time, 'end_time' => $end_time, 't_id' => $t_id, 'id' => $id));
     }catch (PDOException $e) {
       echo "<h1 class='warning'>Invalid operation!</h1>";
     }
@@ -94,10 +98,34 @@
 
     $id = intval($id);
     try{
-      $req = $db->query("DELETE FROM times WHERE id='$id'");
+      $req = $db->prepare("DELETE FROM times WHERE id=:id");
+      $req->execute(array('id' => $id));
     }catch (PDOException $e) {
       echo "<h1 class='warning'>Invalid operation!</h1>";
     }
+  }
+
+  public static function getTaskHours($id) {
+    if(!verifyLogin($_SESSION)){
+      echo "<h1 class'warning'>Not logged in</h1>";
+      return;
+    }
+
+    $db = Db::getInstance();
+    try{
+      $req = $db->prepare("SELECT * FROM times WHERE t_id=:id");
+      $req->execute(array('id' => $id));
+    }catch (PDOException $e) {
+      echo "<h1 class='warning'>Invalid operation!</h1>";
+    }
+    $total;
+    foreach($req->fetchAll() as $time) {
+      $total += $time['end_time'] - $time['start_time'];
+    }
+
+    return $total;
+
+
   }
 }
 

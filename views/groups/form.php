@@ -8,7 +8,7 @@
     } ?>">
   </div>
   <div class="form-group">
-    <label>Admin</label>
+    <label class="trn">Admin</label>
     <select name="a_id" class="form-control">
       <?php foreach($users as $user) { ?>
         <option value="<?php echo $user->id; ?>" <?php if($user->id == $group->a_id) { echo "selected='selected'"; } ?>><?php echo $user->name; ?> </option>
@@ -16,20 +16,20 @@
     </select>
   </div>
   <div class="form-group">
-    <label>Name</label>
+    <label class="trn">Name</label>
     <input type="text" class="form-control" name="name" value="<?php echo $group->name; ?>">
   </div>
   <div class="form-group">
-    <label>Info</label>
+    <label class="trn">Info</label>
     <input type="text" class="form-control" name="info" value="<?php echo $group->info; ?>">
   </div>
   <?php if(isset($group->id)) { ?>
     <div class="form-group">
-      <label>Active</label>
+      <label class="trn">Active</label>
       <input type="checkbox" class="form-control" name="active" value="<?php echo $group->active; ?>" <?php if($group->active) { echo "checked"; }?>>
     </div>
   <?php } ?>
   <div class="form-group">
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary trn">Submit</button>
   </div>
 </form>

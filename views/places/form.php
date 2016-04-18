@@ -8,7 +8,7 @@
     } ?>">
   </div>
   <div class="form-group">
-    <label>Manager</label>
+    <label class="trn">Manager</label>
     <select name="o_id" class="form-control">
       <?php foreach($owners as $owner) { ?>
         <option value="<?php echo $owner->id; ?>" <?php if($owner->id == $place->o_id) { echo "selected='selected'"; } ?>><?php echo $owner->name; ?> </option>
@@ -16,22 +16,22 @@
     </select>
   </div>
   <div class="form-group">
-    <label>Address</label>
+    <label class="trn">Address</label>
     <input type="text" class="form-control" name="address" value="<?php echo $place->address; ?>">
   </div>
   <div class="form-group">
-    <label>City</label>
+    <label class="trn">City</label>
     <input type="text" class="form-control" name="city" value="<?php echo $place->city; ?>">
   </div>
   <div class="form-group">
-    <label>Maintenance</label>
+    <label class="trn">Maintenance</label>
     <input type="text" class="form-control" name="maintenance" value="<?php echo $place->maintenance; ?>">
   </div>
   <div class="form-group">
-    <label>Billing code</label>
+    <label class="trn">Billing code</label>
     <input type="text" class="form-control" name="billingcode" value="<?php echo $place->billingcode; ?>">
   </div>
   <div class="form-group">
-    <button type="submit" class="btn btn-primary">Add</button>
+    <button type="submit" class="btn btn-primary trn">Add</button>
   </div>
 </form>

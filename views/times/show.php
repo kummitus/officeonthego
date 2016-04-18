@@ -1,7 +1,7 @@
 <div class="table-responsive">
 <table class="table table-striped table-bordered">
   <thead>
-    <tr><th>User</th><th>Date</th><th>Task name and location</th><th>Start time</th><th>End Time</th></tr>
+    <tr><th class="trn">User</th><th class="trn">Date</th><th class="trn">Task name and location</th><th class="trn">Start time</th><th class="trn">End Time</th></tr>
   </thead>
   <tbody>
       <tr>
@@ -25,5 +25,8 @@
 </table>
 </div>
 <br>
-<a href="/?controller=times&action=delete&id=<?php echo $time->id ?>"><div class="btn btn-warning">Delete</div></a>
-<a href="/?controller=times&action=form&id=<?php echo $time->id ?>"><div class="btn btn-default">Update</div></a>
+
+<?php if(hasAdminRights($user)){ ?>
+  <a href="/?controller=times&action=delete&id=<?php echo $time->id ?>"><div class="btn btn-warning trn">Delete</div></a>
+  <a href="/?controller=times&action=form&id=<?php echo $time->id ?>"><div class="btn btn-default trn">Update</div></a>
+<?php } ?>

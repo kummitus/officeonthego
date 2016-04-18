@@ -54,11 +54,24 @@
       if(!isset($_POST['name']) || !isset($_POST['password'])) {
         return call('pages', 'error');
       }
+      $errors = [];
       if(null == $_POST['id']) {
-        User::create($_POST['name'], $_POST['password']);
+        $errors = User::create($_POST['name'], $_POST['password']);
+        printerrors($errors);
+        if(count($errors)>0){
+          require_once($_SERVER['DOCUMENT_ROOT'].'views/users/form.php');
+          return;
+        }
         header("Location: ?controller=users&action=index");
       } else {
-        User::update($_POST['id'], $_POST['name'], $_POST['password']);
+        $errors = User::update($_POST['id'], $_POST['name'], $_POST['password'], 0);
+        printerrors($errors);
+        if(count($errors)>0){
+          require_once($_SERVER['DOCUMENT_ROOT'].'views/users/form.php');
+          $user = new User($_POST['id'], $_POST['name'], $_POST['password'], 0);
+          return;
+        }
+        printerrors($errors);
         header("Location: ?controller=users&action=index");
       }
     }

@@ -8,8 +8,10 @@
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="assets/css/custom.css">
+    <link rel="stylesheet" href="assets/css/dropdown.css">
+    <link rel="stylesheet" href="assets/css/jquery-ui.min.css">
     <script src="assets/js/jquery-2.2.1.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery-ui.min.js"></script>
   </head>
   <body>
     <header>
@@ -17,23 +19,27 @@
         <h1>Office <small>on the road</small></h1>
       </div>
 
-      <?php if(verifyLogin($_SESSION)){
-        showHeader($_SESSION);
-      }?>
+      <?php showHeader($_SESSION);?>
     </header>
 
 
     <div class="panel panel-default">
       <div class="panel-body">
         <?php require_once('utils/routes.php'); ?>
-        <?php if(!verifyLogin($_SESSION)){
+        <?php if(!isset($_SESSION['user'])){
           include('views/users/login.php');
         } ?>
       </div>
     </div>
 
     <footer>
-       <div class="panel-footer">Copyright Antti Häkli 2016</div>
+       <div class="panel-footer"><a href="?controller=pages&action=about">Copyright Antti Häkli 2016</a></div>
     </footer>
+
+
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/dropdown.js"></script>
+    <script src="assets/js/jquery.translate.js"></script>
+    <script src="assets/js/translation.js"></script>
   </body>
 </html>

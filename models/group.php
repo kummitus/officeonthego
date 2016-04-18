@@ -69,10 +69,10 @@
         try{
           $req = $db->query("SELECT memberships.id, memberships.u_id, users.id, users.name, memberships.g_id FROM memberships INNER JOIN users on memberships.u_id=users.id WHERE memberships.g_id='$id'");
         }catch (PDOException $e) {
-          echo "<h1 class='warning'>Invalid operation!</h1>";
+          echo "<h1 class='warning'>Invalid operation in findMembers!</h1>";
         }
         foreach($req->fetchAll() as $member) {
-          $list[] = new User($member['id'], $member['name'], $member['password']);
+          $list[] = new User($member['id'], $member['name'], 0, 0);
         }
 
         return $list;
