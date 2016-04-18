@@ -69,7 +69,7 @@
       //$req->execute(array('id' => $id));
       $place = $req->fetch();
 
-      return new Place($place['id'], $place['o_id'], $place['address'], $place['city'], $place['maintenance'], $place['billingcode'], $place['oname']);
+      return new Place($id, $place['o_id'], $place['address'], $place['city'], $place['maintenance'], $place['billingcode'], $place['oname']);
     }
 
     public static function create($o_id, $address, $city, $maintenance, $billingcode) {
@@ -105,9 +105,10 @@
 
       $id = intval($id);
       try{
-        $req = $db->query("DELETE FROM places WHERE id='$id'");
+        $req = $db->prepare("DELETE FROM places WHERE id=:id");
+        $req->execute(array('id' => $id));
       }catch (PDOException $e) {
-        echo "<h1 class='warning'>Invalid operation!</h1>";
+        echo "<h1 class='warning'>Invalid operation in deleting place</h1>";
       }
     }
   }

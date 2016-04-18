@@ -20,6 +20,6 @@
 </table>
 <br>
 
-<?php if(hasAdminRights($_SESSION)){ ?>
+<?php if($_SESSION['adminlevel'] == 1){ ?>
   <a href="/?controller=owners&action=form"><div class="btn btn-default trn">Create Manager</div></a>
 <?php } ?>

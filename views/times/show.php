@@ -26,7 +26,7 @@
 </div>
 <br>
 
-<?php if(hasAdminRights($user)){ ?>
+<?php if($_SESSION['adminlevel'] == 1){ ?>
   <a href="/?controller=times&action=delete&id=<?php echo $time->id ?>"><div class="btn btn-warning trn">Delete</div></a>
   <a href="/?controller=times&action=form&id=<?php echo $time->id ?>"><div class="btn btn-default trn">Update</div></a>
 <?php } ?>

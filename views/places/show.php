@@ -28,7 +28,7 @@
 <iframe width="100%" height="30%" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/search?q=<?php echo $place->address; echo "+"; echo $place->city?>&key=AIzaSyCT-zxuhHuLz74_NHeXSitfrC7gTvkrHHw" allowFullScreen></iframe>
 <br>
 <br>
-<?php if(hasAdminRights($user)){ ?>
+<?php if($_SESSION['adminlevel'] == 1){ ?>
 <a href="/?controller=places&action=delete&id=<?php echo $place->id ?>"><div class="btn btn-warning trn">Delete</div></a>
 <a href="/?controller=places&action=form&id=<?php echo $place->id ?>"><div class="btn btn-default trn">Update</div></a>
 <?php } ?>

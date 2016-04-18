@@ -48,6 +48,7 @@
       }
       Place::delete($_GET['id']);
       $places = Place::all();
+      $cities = Place::cities();
       require_once('views/places/index.php');
     }
   }
