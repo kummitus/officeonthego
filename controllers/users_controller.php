@@ -6,25 +6,37 @@
         echo "<h1 class'warning'>Not logged in</h1>";
         return;
       }
-      $users = User::all();
-      require_once('views/users/index.php');
+      if(hasAdminRights($_SESSION)){
+        $users = User::all();
+        require_once('views/users/index.php');
+      }else{
+        echo "Illegal action";
+        header("Location: ?controller=pages&action=home");
+      }
     }
 
     public function show() {
-      if(!verifyLogin($_SESSION)){
+      if(!hasAdminRights($_SESSION)){
         echo "<h1 class'warning'>Not logged in</h1>";
+        header("Location: ?controller=pages&action=home");
         return;
       }
       if (!isset($_GET['id'])) {
         return call('pages', 'error');
       }
-      $user = User::find($_GET['id']);
-      require_once('views/users/show.php');
+      if(hasAdminRights($_SESSION)){
+        $user = User::find($_GET['id']);
+        require_once('views/users/show.php');
+      }else{
+        echo "Illegal action";
+        header("Location: ?controller=pages&action=home");
+      }
     }
 
     public function delete() {
-      if(!verifyLogin($_SESSION)){
+      if(!hasAdminRights($_SESSION)){
         echo "<h1 class'warning'>Not logged in</h1>";
+        header("Location: ?controller=pages&action=home");
         return;
       }
       if (!isset($_GET['id'])) {
@@ -36,8 +48,9 @@
     }
 
     public function form() {
-      if(!verifyLogin($_SESSION)){
+      if(!hasAdminRights($_SESSION)){
         echo "<h1 class'warning'>Not logged in</h1>";
+        header("Location: ?controller=pages&action=home");
         return;
       }
       if(isset($_GET['id'])){
@@ -47,8 +60,9 @@
     }
 
     public function create() {
-      if(!verifyLogin($_SESSION)){
+      if(!hasAdminRights($_SESSION)){
         echo "<h1 class'warning'>Not logged in</h1>";
+        header("Location: ?controller=pages&action=home");
         return;
       }
       if(!isset($_POST['name']) || !isset($_POST['password'])) {
@@ -106,7 +120,7 @@
         echo "<h1 class'warning'>Not logged in</h1>";
         return;
       }
-      if(!hasAdminRights($_SESSION)){
+      if(hasAdminRights($_SESSION)){
         if($_SESSION['user'] != $user->id){
           $user = User::find($_GET['id']);
           if($user->adminlevel == 0){

@@ -62,14 +62,15 @@
 
       $id = intval($id);
       try{
-        $req = $db->query("SELECT places.id, places.address, places.city, places.maintenance, places.billingcode, owners.name AS oname, owners.id FROM places INNER JOIN owners ON places.o_id=owners.id WHERE places.id=$id");
+        $req = $db->prepare("SELECT places.id, places.address, places.city, places.maintenance, places.billingcode, owners.name AS oname, owners.id FROM places INNER JOIN owners ON places.o_id=owners.id WHERE places.id=:id");
+        $req->execute(array('id' => $id));
       }catch (PDOException $e) {
-        echo "<h1 class='warning'>Invalid operation!</h1>";
+        echo "<h1 class='warning'>Invalid operation finding place!</h1>";
       }
       //$req->execute(array('id' => $id));
       $place = $req->fetch();
 
-      return new Place($id, $place['o_id'], $place['address'], $place['city'], $place['maintenance'], $place['billingcode'], $place['oname']);
+      return new Place($id, $place['owners.id'], $place['address'], $place['city'], $place['maintenance'], $place['billingcode'], $place['oname']);
     }
 
     public static function create($o_id, $address, $city, $maintenance, $billingcode) {
@@ -78,7 +79,8 @@
       }
       $db = Db::getInstance();
       try{
-        $req = $db->query("INSERT INTO places (o_id, address, city, maintenance, billingcode) VALUES ('$o_id', '$address', '$city', '$maintenance', '$billingcode')");
+        $req = $db->prepare("INSERT INTO places (o_id, address, city, maintenance, billingcode) VALUES (:o_id, :address, :city, :maintenance, :billingcode)");
+        $req->execute(array('o_id' => $o_id, 'address' => $address, 'city' => $city, 'maintenance' => $maintenance, 'billingcode' => $billingcode));
       }catch (PDOException $e) {
         echo "<h1 class='warning'>Invalid operation!</h1>";
       }
@@ -90,7 +92,8 @@
       }
       $db = Db::getInstance();
       try{
-        $req = $db->query("UPDATE places SET a_id=$o_id, address='$address', city='$city', maintenance='$maintenance', billingcode='$billingcode' WHERE id=$id");
+        $req = $db->prepare("UPDATE places SET o_id=:o_id, address=:address, city=:city, maintenance=:maintenance, billingcode=:billingcode WHERE id=:id");
+        $req->execute(array('o_id' => $o_id, 'address' => $address, 'city' => $city, 'maintenance' => $maintenance, 'billingcode' => $billingcode, 'id' => $id));
       }catch (PDOException $e) {
         echo "<h1 class='warning'>Invalid operation!</h1>";
       }

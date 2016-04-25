@@ -13,7 +13,7 @@
           return call('pages', 'error');
         }
         $id = intval($_GET['id']);
-        $images = Image::getImages($id, 1);
+        $images = Image::getImages($id, 2);
         $bill = Bill::find($_GET['id']);
         require_once('views/bills/show.php');
       }
@@ -34,7 +34,7 @@
           $this->form();
           return;
         }
-        if(null == $_POST['id']) {
+        if(isset($_POST['id'])) {
           $params = Bill::create($_POST['u_id'],$_POST['company'], $_POST['sum'], $_POST['info'], $_POST['date']);
           $files = $_FILES;
           Image::insertpicbill($params, $files);
@@ -42,7 +42,6 @@
         } else {
           $params = Bill::update($_POST['id'], $_POST['u_id'], $_POST['company'], $_POST['sum'], $_POST['info'], $_POST['date']);
           $files = $_FILES;
-          Image::insertpicbill($params, $files);
           $bills = Bill::all();
           header("Location: ?controller=bills&action=show&id=".urlencode($_POST['id']));
         }

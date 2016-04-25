@@ -12,7 +12,9 @@
       if (!isset($_GET['id'])) {
         return call('pages', 'error');
       }
-      $place = Place::find($_GET['id']);
+      $id = intval($_GET['id']);
+      $images = Image::getImages($id, 1);
+      $place = Place::find($id);
       require_once('views/places/show.php');
     }
 
@@ -50,6 +52,34 @@
       $places = Place::all();
       $cities = Place::cities();
       require_once('views/places/index.php');
+    }
+
+    public function addpic() {
+      allowedMethodCall($_SESSION);
+      if (!isset($_GET['id'])) {
+        echo "Please fill in the form";
+        $this->form();
+        return;
+      }
+      $place = intval($_GET['id']);
+      require_once('views/places/addpic.php');
+    }
+
+    public function insertpic(){
+      allowedMethodCall($_SESSION);
+
+      $params['o_id'] = intval($_POST['o_id']);
+      $params['comment'] = $_POST['comment'];
+      $files = $_FILES;
+      Image::insertpicplace($params, $files);
+      header("Location: ?controller=tasks&action=show&id=".$params);
+    }
+
+    public function removepic(){
+      allowedMethodCall($_SESSION);
+
+      Image::removepic($_GET['picid']);
+      header("Location: ?controller=places&action=show&id=".$_GET['id']);
     }
   }
 

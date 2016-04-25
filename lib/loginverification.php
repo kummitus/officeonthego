@@ -4,7 +4,7 @@
       if(isset($status['user'])){
         return true;
       }else{
-        Logger::create(0, $_SERVER['REMOTE_ADDR'], 2);
+        Logger::create(1, $_SERVER['REMOTE_ADDR'], "Invoking method requiring logging in");
         return false;
       }
   }
@@ -14,7 +14,10 @@
       if($status['adminlevel'] == 1){
         return true;
       }else{
-        Logger::create(0, $_SERVER['REMOTE_ADDR'], 1);
+        if(!isset($status['user'])){
+          $status['user'] = 1;
+        }
+        Logger::create(intval($status['user']), $_SERVER['REMOTE_ADDR'], "User invoking method requiring admin access");
         return false;
       }
   }

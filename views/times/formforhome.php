@@ -9,7 +9,7 @@
     </select>
   </div>
   <div class="form-group">
-    <label class="trn">Present</label>
+    <label for="membemrs[]" class="trn">Present</label>
     <select name="members[]" multiple="" class="ui fluid dropdown">
       <?php foreach($members as $member) { ?>
         <option value="<?php echo $member->id ?>" selected="selected"><?php echo $member->name ?></option>
@@ -17,15 +17,15 @@
     </select>
   </div>
   <div class="form-group">
-    <label class="trn">Date</label>
+    <label for="date" class="trn">Date</label>
     <input type="text" id="datepicker" class="form-control" name="date" value="<?php echo date('m/d/y'); ?>">
   </div>
   <div class="form-group">
-    <label class="trn">Start time</label>
-    <input type="time" class="form-control" name="start_time" value="<?php echo date('H:i', time() - 60*120); ?>">
+    <label for="start_time" class="trn">Start time</label>
+    <input type="time" class="form-control" name="start_time" value="<?php echo date('H:i', time() - 60*90); ?>">
   </div>
   <div class="form-group">
-    <label class="trn">End time</label>
+    <label for="end_time" class="trn">End time</label>
     <input type="time" class="form-control" name="end_time" value="<?php echo date('H:i', time()); ?>">
   </div>
   <div class="form-group">

@@ -6,7 +6,7 @@
     public $company;
     public $sum;
     public $info;
-    public $date;
+    public $dateofpurchase;
 
     public function __construct($id, $u_id, $company, $sum, $info, $date) {
       $this->id = $id;
@@ -14,7 +14,7 @@
       $this->company = $company;
       $this->sum = $sum;
       $this->info = $info;
-      $this->date = $date;
+      $this->dateofpurchase = $date;
     }
 
     public static function all() {
@@ -29,7 +29,7 @@
         echo "<h1 class='warning'>Invalid operation!</h1>";
       }
       foreach($req->fetchAll() as $bill) {
-        $list[] = new bill($bill['id'], $bill['u_id'], $bill['company'], $bill['sum'], $bill['info'], $bill['date']);
+        $list[] = new bill($bill['id'], $bill['u_id'], $bill['company'], $bill['sum'], $bill['info'], $bill['dateofpurchase']);
       }
 
       return $list;
@@ -61,10 +61,13 @@
       $date1 = date_create($date);
       $date = date_format($date1, 'Y-m-d');
       try{
-        $db->query("INSERT INTO bills (u_id, company, sum, info, date) VALUES ('$u_id', '$company', '$sum', '$info', '$date')");
+        $req = $db->prepare("INSERT INTO bills (u_id, company, sum, info, dateofpurchase) VALUES (:u_id, :company, :sum, :info, :dateofpurchase)");
+        $req->execute(array('u_id' => $u_id, 'company' => $company, 'sum' => $sum, 'info' => $info, 'dateofpurchase' => $date));
       }catch (PDOException $e) {
         echo "<h1 class='warning'>Invalid operation in create!</h1>".$e;
       }
+
+        require 'utils/kint/Kint.class.php';
       return $db->lastInsertId();
     }
 
@@ -74,7 +77,8 @@
       }
       $db = Db::getInstance();
       try{
-        $db->query("UPDATE bills SET u_id=$u_id, company='$company', name=$sum, info='$info', path='$path', date='$date' WHERE id=$id");
+        $req = $db->prepare("UPDATE bills SET u_id=:u_id, company=:company, name=:sum, info=:info, dateofpurchase=:dateofpurchase WHERE id=:id");
+        $req->execute(array('u_id' => $u_id, 'company' => $company, 'sum' => $sum, 'info' => $info, 'dateofpurchase' => $date, 'id' => $id));
       }catch (PDOException $e) {
         echo "<h1 class='warning'>Invalid operation in update!</h1>";
       }
@@ -89,7 +93,8 @@
 
       $id = intval($id);
       try{
-        $req = $db->query("DELETE FROM bills WHERE id='$id'");
+        $req = $db->prepare("DELETE FROM bills WHERE id=:id");
+        $req->execute(array('id' => $id));
       }catch (PDOException $e) {
         echo "<h1 class='warning'>Invalid operation!</h1>";
       }

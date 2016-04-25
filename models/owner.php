@@ -54,7 +54,8 @@
     }
     $db = Db::getInstance();
     try{
-      $req = $db->query("INSERT INTO owners (name, phone, email) VALUES ('$name', '$phone', '$email')");
+      $req = $db->prepare("INSERT INTO owners (name, phone, email) VALUES (:name, :phone, :email)");
+      $req->execute(array('name' => $name, 'phone' => $phone, 'email' => $email));
     }catch (PDOException $e) {
       echo "<h1 class='warning'>Invalid operation!</h1>";
     }
@@ -67,7 +68,8 @@
     $db = Db::getInstance();
     $id = intval($id);
     try{
-      $req = $db->query("UPDATE owners SET name='$name', phone='$phone', email='$email' WHERE id='$id'");
+      $req = $db->prepare("UPDATE owners SET name=:name, phone=:phone, email=:email WHERE id=:id");
+      $req->execute(array('name' => $name, 'phone' => $phone, 'email' => $email, 'id' => $id));
     }catch (PDOException $e) {
       echo "<h1 class='warning'>Invalid operation!</h1>";
     }
@@ -81,7 +83,8 @@
 
     $id = intval($id);
     try{
-      $req = $db->query("DELETE FROM owners WHERE id='$id'");
+      $req = $db->prepare("DELETE FROM owners WHERE id=:id");
+      $req->execute(array('id' => $id));
     }catch (PDOException $e) {
       echo "<h1 class='warning'>Invalid operation!</h1>";
     }

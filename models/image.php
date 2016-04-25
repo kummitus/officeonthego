@@ -25,7 +25,7 @@
         $req = $db->prepare('SELECT * FROM images WHERE o_id=:o_id AND type=:type ');
         $req->execute(array('o_id' => $o_id, 'type' => $type));
       }catch (PDOException $e) {
-        echo "<h1 class='warning'>Invalid operation!</h1>";
+        echo "<h1 class='warning'>Invalid operation fetching images!</h1>";
       }
 
       foreach($req->fetchAll() as $image) {
@@ -41,9 +41,15 @@
 
     }
 
-    public function insertpicbill($params, $files){
+    public function insertpicplace($params, $files){
       require_once('utils/uploader.php');
       Uploader::upload($params, $files, 1);
+
+    }
+
+    public function insertpicbill($params, $files){
+      require_once('utils/uploader.php');
+      Uploader::upload($params, $files, 2);
     }
 
     public function removepic($id){
@@ -56,9 +62,11 @@
       $id = intval($id);
 
       try{
-        $req = $db->query("SELECT * FROM images WHERE id='$id'");
+        $req = $db->prepare("SELECT * FROM images WHERE id=:id");
+        $req->execute(array('id' => $id));
         $name = $req->fetch();
-        $db2->query("DELETE FROM images WHERE id='$id'");
+        $req2 = $db2->prepare("DELETE FROM images WHERE id=:id");
+        $req2->execute(array('id' => $id));
       }catch (PDOException $e) {
         echo "<h1 class='warning'>Invalid operation!</h1>";
       }finally {

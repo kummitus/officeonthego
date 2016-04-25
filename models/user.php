@@ -159,10 +159,12 @@
       try{
         $user = $req->fetch();
         if(password_verify($password, $user['password'])){
-          Logger::create($user['id'], $_SERVER['REMOTE_ADDR'], 0);
+          Logger::create($user['id'], $_SERVER['REMOTE_ADDR'], "Succesful login");
           if($user){
             return new User($user['id'], $user['name'], $user['password'], $user['adminlevel']);
           }
+        }else {
+            Logger::create($user['id'], $_SERVER['REMOTE_ADDR'], "Unauthorized access");
         }
       }catch (PDOException $e) {
         echo "<h1 class='warning'>Invalid operation!</h1>";

@@ -1,7 +1,7 @@
 <?php
   class PagesController {
     public function home() {
-      if(verifyLogin($_SESSION)){
+      if(isset($_SESSION['user'])){
         $group = intval(Membership::getGroupByUserId($_SESSION['user']));
         $tasks = Task::findGroupTasksActive($group);
         $members = Group::findMembers($group);
@@ -14,7 +14,7 @@
 
     public function error() {
 
-      Logger::create(0, $_SERVER['REMOTE_ADDR'], 3);
+      Logger::create(0, $_SERVER['REMOTE_ADDR'], "Invalid request that invoked error function");
       require_once('views/pages/error.php');
     }
 

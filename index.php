@@ -1,4 +1,5 @@
 <?php
+  include 'c3.php';
   session_start();
   require_once('utils/connection.php');
   require('lib/loginverification.php');
@@ -11,6 +12,5 @@
     $controller = 'pages';
     $action = 'home';
   }
-
   require_once('views/layout.php');
 ?>

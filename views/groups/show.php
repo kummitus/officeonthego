@@ -37,3 +37,4 @@
 <a href="/?controller=groups&action=delete&id=<?php echo $group->id ?>"><div class="btn btn-danger trn">Delete</div></a>
 <a href="/?controller=groups&action=form&id=<?php echo $group->id ?>"><div class="btn btn-default trn">Update</div></a>
 <a href="/?controller=groups&action=join&g_id=<?php echo $group->id ?>"><div class="btn btn-default trn">Add member</div></a>
+<a href="/?controller=groups&action=index"><div class="btn btn-default trn">Back</div></a>

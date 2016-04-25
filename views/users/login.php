@@ -2,12 +2,12 @@
 
   <form method="post" action="?controller=users&action=handle_login">
     <div class="form-group">
-      <label class="trn">Username</label>
+      <label for="name" class="trn">Username</label>
       <input type="text" class="form-control" name="name" placeholder="Username">
     </div>
 
     <div class="form-group">
-      <label class="trn">Password</label>
+      <label for="password" class="trn">Password</label>
       <input type="password" class="form-control" name="password">
     </div>
 

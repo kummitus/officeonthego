@@ -36,7 +36,7 @@
         $this->form();
         return;
       }
-      if(is_numeric($_POST['id'])){
+      if(!isset($_POST['id'])){
         Task::create($_POST['g_id'], $_POST['p_id'], $_POST['name'], $_POST['info']);
         header("Location: ?controller=tasks&action=index");
       }else{

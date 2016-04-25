@@ -126,14 +126,14 @@
 
     $db = Db::getInstance();
     try{
-      $req = $db->prepare("SELECT * FROM times WHERE t_id=:id");
+      $req = $db->prepare("SELECT TIMEDIFF(end_time, start_time) as diff FROM times WHERE t_id=:id");
       $req->execute(array('id' => $id));
     }catch (PDOException $e) {
       echo "<h1 class='warning'>Invalid operation!</h1>";
     }
-    $total;
+    $total = 0;;
     foreach($req->fetchAll() as $time) {
-      $total += $time['end_time'] - $time['start_time'];
+      $total += $time['diff'];
     }
 
     return $total;

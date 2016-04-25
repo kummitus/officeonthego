@@ -51,13 +51,19 @@
       if (move_uploaded_file($files["image"]["tmp_name"], $target_file)) {
         $db = Db::getInstance();
         try{
-          $o_id = intval($params['o_id']);
-          $comment = $params['comment'];
-          $req = $db->query("INSERT INTO images (o_id, type, image_path, comment) VALUES ('$o_id', '$type', '$name', '$comment')");
-          require 'utils/kint/Kint.class.php';
-          Kint::trace();
-          Kint::dump( $_SERVER );
-          Kint::dump( $_POST );
+          if(isset($params['o_id'])) {
+            $o_id = intval($params['o_id']);
+          } else {
+            $o_id = intval($params);
+          }
+          if(!isset($params['comment'])){
+            $comment = "";
+          }else {
+            $comment = $params['comment'];
+          }
+          $req = $db->prepare("INSERT INTO images (o_id, type, image_path, comment) VALUES (:o_id, :type, :image_path, :comment)");
+          $req->execute(array('o_id' => $o_id, 'type' => $type, 'image_path' => $name, 'comment' => $comment));
+
         }catch (PDOException $e) {
           echo "<h1 class='warning'>Invalid operation!</h1>";
         }

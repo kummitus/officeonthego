@@ -30,3 +30,4 @@
   <a href="/?controller=times&action=delete&id=<?php echo $time->id ?>"><div class="btn btn-warning trn">Delete</div></a>
   <a href="/?controller=times&action=form&id=<?php echo $time->id ?>"><div class="btn btn-default trn">Update</div></a>
 <?php } ?>
+<a href="/?controller=times&action=index"><div class="btn btn-default trn">Back</div></a>

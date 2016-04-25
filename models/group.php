@@ -67,7 +67,8 @@
         $list = [];
         $db = Db::getInstance();
         try{
-          $req = $db->query("SELECT memberships.id, memberships.u_id, users.id, users.name, memberships.g_id FROM memberships INNER JOIN users on memberships.u_id=users.id WHERE memberships.g_id='$id'");
+          $req = $db->prepare("SELECT memberships.id, memberships.u_id, users.id, users.name, memberships.g_id FROM memberships INNER JOIN users on memberships.u_id=users.id WHERE memberships.g_id=:id");
+          $req->execute(array('id' => $id));
         }catch (PDOException $e) {
           echo "<h1 class='warning'>Invalid operation in findMembers!</h1>";
         }
@@ -84,7 +85,8 @@
         }
         $db = Db::getInstance();
         try{
-          $req = $db->query("INSERT INTO groups (a_id, name, info, active) VALUES ('$a_id', '$name', '$info', true)");
+          $req = $db->prepare("INSERT INTO groups (a_id, name, info, active) VALUES (:a_id, :name, :info, true)");
+          $req->execute(array('a_id' => $a_id, 'name' => $name, 'info' => $info));
         }catch (PDOException $e) {
           echo "<h1 class='warning'>Invalid operation!</h1>";
         }
@@ -96,7 +98,8 @@
         }
         $db = Db::getInstance();
         try{
-          $req = $db->query("UPDATE groups SET a_id=$a_id, name='$name', info='$info', active=$active WHERE id=$id");
+          $req = $db->prepare("UPDATE groups SET a_id=:a_id, name=:name, info=:info, active=:active WHERE id=:id");
+          $req->execute(array('a_id' => $a_id, 'name' => $name, 'info' => $info, 'id' => $id));
         }catch (PDOException $e) {
           echo "<h1 class='warning'>Invalid operation!</h1>";
         }
@@ -110,9 +113,38 @@
 
         $id = intval($id);
         try{
-          $req = $db->query("DELETE FROM groups WHERE id='$id'");
+          $req = $db->prepare("DELETE FROM groups WHERE id=:id");
+          $req->execute(array('id' => $id));
         }catch (PDOException $e) {
           echo "<h1 class='warning'>Invalid operation!</h1>";
+        }
+      }
+
+      public static function toggleactive($id) {
+        if(!verifyLogin($_SESSION)){
+          return;
+        }
+        $db = Db::getInstance();
+        $id = intval($id);
+        try{
+          $req = $db->prepare("UPDATE groups SET active=1 WHERE id=:id");
+          $req->execute(array('id' => $id));
+        }catch (PDOException $e) {
+          echo "<h1 class='warning'>Invalid operation! In toggleactive</h1>".$e;
+        }
+      }
+
+      public static function toggleinactive($id) {
+        if(!verifyLogin($_SESSION)){
+          return;
+        }
+        $db = Db::getInstance();
+        $id = intval($id);
+        try{
+          $req = $db->prepare("UPDATE groups SET active=0 WHERE id=:id");
+          $req->execute(array('id' => $id));
+        }catch (PDOException $e) {
+          echo "<h1 class='warning'>Invalid operation! In toggleinactive</h1>".$e;
         }
       }
   }

@@ -24,8 +24,8 @@
   <td>
     <?php echo $task->p_id; ?> <span class="trn">hours</span>
   </td>
-  <td><a href='/?controller=tasks&action=show&id=<?php echo $task->id; ?>' class="trn">See task</a></td>
-  <td><a href='/?controller=tasks&action=toggleactivity&id=<?php echo $task->id; ?>' class="trn">Toggle Activity</a></td>
+  <td><a href='/?controller=tasks&action=show&id=<?php echo $task->id; ?>' class="trn btn btn-default">See task</a></td>
+  <td><a href='/?controller=tasks&action=toggleactivity&id=<?php echo $task->id; ?>' class="trn btn btn-warning">Toggle Activity</a></td>
 </tr>
 <?php }
 }  ?>
@@ -59,8 +59,8 @@
     <td>
       <?php echo $task->p_id; ?>
     </td>
-    <td><a href="/?controller=tasks&action=show&id=<?php echo $task->id; ?>" class="trn">See task</a></td>
-    <td><a href="/?controller=tasks&action=toggleactivity&id=<?php echo $task->id; ?>" class="trn">Toggle Activity</a></td>
+    <td><a href="/?controller=tasks&action=show&id=<?php echo $task->id; ?>" class="trn btn btn-default">See task</a></td>
+    <td><a href="/?controller=tasks&action=toggleactivity&id=<?php echo $task->id; ?>" class="trn btn btn-warning">Toggle Activity</a></td>
   </tr>
 <?php }
 }  ?>

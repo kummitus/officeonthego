@@ -52,6 +52,23 @@
         require_once('views/groups/index.php');
       }
 
+      public function toggleactivity() {
+        allowedMethodCall($_SESSION);
+        if (!isset($_GET['id'])) {
+          echo "Please fill in the form";
+          $this->form();
+          return;
+        }
+        $group = Group::find($_GET['id']);
+        if($group->active == 1){
+          Group::toggleinactive($_GET['id']);
+        }else{
+          Group::toggleactive($_GET['id']);
+        }
+        $groups = Group::all();
+        require_once('views/groups/index.php');
+      }
+
       public function join() {
         allowedMethodCall($_SESSION);
         $users = User::all();

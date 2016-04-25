@@ -3,7 +3,7 @@
 
     require_once('controllers/' . $controller . '_controller.php');
     require_once('lib/validators.php');
-    
+
     switch($controller) {
       case 'pages':
         require_once('models/logger.php');
@@ -35,6 +35,7 @@
         $controller = new TimesController();
       break;
       case 'places':
+        require_once('models/image.php');
         require_once('models/place.php');
         require_once('models/owner.php');
         $controller = new PlacesController();
@@ -68,10 +69,10 @@
 
   $controllers = array('pages' => ['home', 'error', 'about'],
                        'users' => ['index', 'show', 'delete', 'create', 'login', 'form', 'login', 'handle_login', 'logout', 'toggleadmin'],
-                       'places' => ['index', 'show', 'delete', 'create', 'form', 'update'],
+                       'places' => ['index', 'show', 'delete', 'create', 'form', 'update', 'addpic', 'insertpic', 'removepic'],
                        'times' => ['index', 'show', 'delete', 'create', 'form', 'update', 'formforhome'],
                        'tasks' => ['index', 'show', 'form', 'create', 'update', 'delete', 'toggleactivity', 'showcurrent', 'addpic', 'insertpic', 'removepic'],
-                       'groups' => ['index', 'show', 'form', 'create', 'delete', 'join'],
+                       'groups' => ['index', 'show', 'form', 'create', 'delete', 'join', 'toggleactivity'],
                        'memberships' => ['create', 'leave'],
                        'owners' => ['index', 'create', 'show', 'form', 'update', 'delete'],
                        'bills' => ['index', 'create', 'show', 'form', 'update', 'delete']

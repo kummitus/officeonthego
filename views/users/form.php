@@ -4,11 +4,11 @@
     <input type="number" class="form-control hidden" name="id" value="<?php if(isset($user)){ echo $user->id;} ?>">
   </div>
   <div class="form-group">
-    <label class="trn">Name</label>
+    <label for="name" class="trn">Name</label>
     <input type="text" class="form-control" name="name" value="<?php if(isset($user)){echo $user->name;} ?>">
   </div>
   <div class="form-group">
-    <label class="trn">Password</label>
+    <label for=="password" class="trn">Password</label>
     <input type="password" class="form-control" name="password" value="">
   </div>
   <div class="form-group">

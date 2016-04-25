@@ -16,7 +16,7 @@
   </div>
   <div class="form-group">
     <label class="trn">Sum</label>
-    <input type="text" class="form-control" name="sum" value="<?php echo $bill->sum; ?>">
+    <input type="number" step=0.01 class="form-control" name="sum" value="<?php echo $bill->sum; ?>">
   </div>
   <div class="form-group">
     <label class="trn">Info</label>

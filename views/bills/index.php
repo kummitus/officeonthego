@@ -1,3 +1,4 @@
+<a href="/?controller=bills&action=form"><div class="btn btn-default trn">Create bill</div></a>
 <?php foreach($companies as $company) { ?>
   <h3><?php echo $company; ?></h3>
 <div class="table-responsive">
@@ -16,7 +17,7 @@
       <span><?php echo $bill->sum; ?> €</span>
     </td>
     <td>
-      <?php echo $bill->date; ?>
+      <?php echo $bill->dateofpurchase; ?>
     </td>
   <td><a href='/?controller=bills&action=show&id=<?php echo $bill->id; ?>' class="trn">See bill</a></td></tr>
 <?php } }?>
@@ -25,4 +26,3 @@
 </div>
 <br>
 <?php } ?>
-<a href="/?controller=bills&action=form"><div class="btn btn-default trn">Create bill</div></a>

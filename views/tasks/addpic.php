@@ -3,7 +3,7 @@
 
 <form id="upload" class="form-group" method="post" action="?controller=tasks&action=insertpic" enctype="multipart/form-data">
   <div class="form-group hidden">
-    <input type="number" name="o_id" id="o_id" value="<?php echo $task ?>">
+    <input type="number" name="o_id" id="o_id" value="<?php echo $task; ?>">
   </div>
   <div class="form-group">
     <p style="text-align: left; font-weight: bold" class="trn">Comment</p>
@@ -20,7 +20,7 @@
 	</ul>
 </form>
 <br>
-<a href="?controller=tasks&action=show&id=<?php echo $task ?>" class="btn btn-primary trn">Back</a>
+<a href="?controller=tasks&action=show&id=<?php echo $task; ?>" class="btn btn-primary trn">Back</a>
 
 		<!-- JavaScript Includes -->
 		<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->

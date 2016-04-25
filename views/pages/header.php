@@ -7,13 +7,14 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <?php if(isset($user['user'])) { ?><a class="navbar-brand" href="<?php echo "?controller=pages&action=home"; ?>"><?php echo $user['username']; ?></a><?php } ?>
+      <h2>Office <small>on the road</small></h2>
+      <!-- <?php if(isset($user['user'])) { ?><a class="navbar-brand" href="<?php echo "?controller=pages&action=home"; ?>"><?php echo $user['username']; ?></a><?php } ?> -->
     </div>
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
-        <li><a href='/' class="trn">Home</a></li>
-          <?php if(verifyLogin($user)){
-            if(hasAdminRights($user)){?>
+        <li><a href='/' class="trn"><?php echo $_SESSION['username']; ?></a></li>
+          <?php if(isset($_SESSION['user'])){
+            if(hasAdminRights($user)){ ?>
         <li><a href='/?controller=users&action=index' class="trn">Users</a></li>
         <li><a href='/?controller=groups&action=index' class="trn">Groups</a></li>
             <?php } ?>
