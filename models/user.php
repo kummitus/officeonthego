@@ -62,7 +62,7 @@
         echo "<h1 class'warning'>Not logged in</h1>";
         return;
       }
-      require_once($_SERVER['DOCUMENT_ROOT'].'lib/validators.php');
+      require_once(dirname(__DIR__).'/lib/validators.php');
       $errors = [];
       if(testWordLength($name, 4, "Name")){
           $errors[] = "Too short name";
@@ -99,7 +99,7 @@
         echo "<h1 class='warning'>Unallowed operation</h1>";
         return;
       }
-      require_once($_SERVER['DOCUMENT_ROOT'].'lib/validators.php');
+      require_once(dirname(__DIR__).'/lib/validators.php');
       $errors = [];
       if(testWordLength($name, 4, "Name")){
           $errors[] = "Too short name";
@@ -122,10 +122,33 @@
       $id = intval($id);
       try {
         // Updates all fields
-        $req = $db->prepare("UPDATE users SET name=:name, password=:password, adminlevel=:adminlevel WHERE id=:id");
-        $req->execute(array('name' => $name, 'password' => $password, 'adminlevel' => $adminlevel, 'id' => $id));
+        $req = $db->prepare("UPDATE users SET name=:name, password=:password WHERE id=:id");
+        $req->execute(array('name' => $name, 'password' => $password, 'id' => $id));
       }catch (PDOException $e) {
         echo "<h1 class='warning'>Invalid operation!</h1>";
+      }
+    }
+
+    // Update user status
+    public static function toggleadmin($id, $adminlevel) {
+      if(!verifyLogin($_SESSION)){
+        echo "<h1 class'warning'>Not logged in</h1>";
+        return;
+      }else if(!hasAdminRights($_SESSION)){
+        echo "<h1 class='warning'>Unallowed operation</h1>";
+        return;
+      }
+
+      $db = Db::getInstance();
+      $id = intval($id);
+      if($adminlevel == 1 || $adminlevel == 0){
+        try {
+          // Updates all fields
+          $req = $db->prepare("UPDATE users SET adminlevel=:adminlevel WHERE id=:id");
+          $req->execute(array('adminlevel' => $adminlevel, 'id' => $id));
+        }catch (PDOException $e) {
+          echo "<h1 class='warning'>Invalid operation!</h1>";
+        }
       }
     }
 

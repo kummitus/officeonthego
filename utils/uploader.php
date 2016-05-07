@@ -1,12 +1,14 @@
 <?php
   class Uploader {
   public static function upload($params, $files, $type){
-    require_once($_SERVER['DOCUMENT_ROOT'].'lib/randomStr.php');
-    $target_dir = $_SERVER['DOCUMENT_ROOT']."uploads/";
+    require_once(dirname(__DIR__).'/lib/randomStr.php');
+    ini_set('upload_tmp_dir', dirname(__DIR__)."/tmp/");
+    $target_dir = dirname(__DIR__)."/uploads/";
     $uploadOk = 1;
     $imageFileType = pathinfo($files['image']['name'],PATHINFO_EXTENSION);
     $name = random_str().".".$imageFileType;
     $target_file = $target_dir . $name;
+
     // Check if image file is a actual image or fake image
     if(isset($_POST["submit"])) {
       $check = getimagesize($files['image']['tmp_name']);
@@ -24,7 +26,7 @@
       $uploadOk = 0;
     }
     // Check file size
-    if ($files["image"]["size"] > 10000000) {
+    if ($files["image"]["size"] > 100000000) {
       echo "Sorry, your file is too large.";
       $uploadOk = 0;
     }
@@ -37,6 +39,7 @@
     if ($uploadOk == 0) {
       echo "Sorry, your file was not uploaded.";
       // if everything is ok, try to upload file
+      return 1;
     } else {
       if(class_exists("Imagick")){
         $thumb = new Imagick($files["image"]["tmp_name"]);
@@ -67,7 +70,8 @@
         }catch (PDOException $e) {
           echo "<h1 class='warning'>Invalid operation!</h1>";
         }
-        echo "The file ". basename( $files["image"]["name"]). " has been uploaded.";
+
+        #echo "The file ". basename( $files["image"]["name"]). " has been uploaded.";
 
       } else {
         echo "Sorry, there was an error uploading your file.";

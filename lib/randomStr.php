@@ -1,6 +1,6 @@
 <?php
 function random_str(){
-  require_once($_SERVER['DOCUMENT_ROOT']."lib/random.php");
+  require_once(dirname(__DIR__)."/lib/random.php");
   $length = 25;
   $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
   $str = '';

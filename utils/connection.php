@@ -8,7 +8,7 @@
 
     public static function getInstance() {
       if (!isset(self::$instance)) {
-        $dsn = 'mysql:host=localhost;dbname=';
+        $dsn = 'mysql:host=;dbname=';
         $username = '';
         $password = '';
         $pdo_options = array(

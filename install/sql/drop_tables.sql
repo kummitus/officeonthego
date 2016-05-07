@@ -1,4 +1,6 @@
 USE tsoha;
+DROP TABLE IF EXISTS logging;
+DROP TABLE if EXISTS images;
 DROP TABLE IF EXISTS memberships;
 DROP TABLE IF EXISTS times;
 DROP TABLE IF EXISTS bills;

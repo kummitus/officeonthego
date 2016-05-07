@@ -27,7 +27,8 @@
       }
       $db = Db::getInstance();
 
-      $id = intval($id);
+      $u_id = intval($u_id);
+      $g_id = intval($g_id);
       try{
         $req = $db->prepare("DELETE FROM memberships WHERE u_id=:u_id AND g_id=:g_id");
         $req->execute(array('u_id' => $u_id, 'g_id' => $g_id));

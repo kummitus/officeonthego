@@ -13,6 +13,7 @@
         return call('pages', 'error');
       }
       $id = intval($_GET['id']);
+
       $images = Image::getImages($id, 1);
       $place = Place::find($id);
       require_once('views/places/show.php');
@@ -34,7 +35,7 @@
         $this->form();
         return;
       }
-      if(0 > $_POST['id']) {
+      if(0 > $_POST['id'] || isset($_POST['id'])) {
         Place::create($_POST['o_id'], $_POST['address'], $_POST['city'], $_POST['maintenance'], $_POST['billingcode']);
         header("Location: ?controller=places&action=index");
       } else {
@@ -79,7 +80,7 @@
       allowedMethodCall($_SESSION);
 
       Image::removepic($_GET['picid']);
-      header("Location: ?controller=places&action=show&id=".$_GET['id']);
+      $this->show();
     }
   }
 

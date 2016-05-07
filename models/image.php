@@ -15,7 +15,7 @@
       $this->comment = $comment;
     }
 
-    public function getImages($o_id, $type){
+    public static function getImages($o_id, $type){
       if(!verifyLogin($_SESSION)){
         return;
       }
@@ -35,24 +35,24 @@
       return $list;
     }
 
-    public function insertpictask($params, $files){
+    public static function insertpictask($params, $files){
       require_once('utils/uploader.php');
       Uploader::upload($params, $files, 0);
 
     }
 
-    public function insertpicplace($params, $files){
+    public static function insertpicplace($params, $files){
       require_once('utils/uploader.php');
       Uploader::upload($params, $files, 1);
 
     }
 
-    public function insertpicbill($params, $files){
+    public static function insertpicbill($params, $files){
       require_once('utils/uploader.php');
       Uploader::upload($params, $files, 2);
     }
 
-    public function removepic($id){
+    public static function removepic($id){
       if(!verifyLogin($_SESSION)){
         return;
       }
@@ -70,7 +70,7 @@
       }catch (PDOException $e) {
         echo "<h1 class='warning'>Invalid operation!</h1>";
       }finally {
-        $path = $_SERVER['DOCUMENT_ROOT']."uploads/".$name['image_path'];
+        $path = dirname(__DIR__)."/uploads/".$name['image_path'];
         if(file_exists($path)){
           unlink($path);
         }

@@ -24,6 +24,7 @@
           $bill = Bill::find($_GET['id']);
         }
         $companies = Bill::companies();
+        $tasks = Task::findActive();
         require_once('views/bills/form.php');
       }
 
@@ -35,15 +36,15 @@
           return;
         }
         if(isset($_POST['id'])) {
-          $params = Bill::create($_POST['u_id'],$_POST['company'], $_POST['sum'], $_POST['info'], $_POST['date']);
+          $params = Bill::create($_POST['u_id'],$_POST['company'], $_POST['sum'], $_POST['info'], $_POST['date'], $_POST['task']);
           $files = $_FILES;
           Image::insertpicbill($params, $files);
-          header("Location: ?controller=bills&action=index");
+          $this->index();
         } else {
-          $params = Bill::update($_POST['id'], $_POST['u_id'], $_POST['company'], $_POST['sum'], $_POST['info'], $_POST['date']);
+          $params = Bill::update($_POST['id'], $_POST['u_id'], $_POST['company'], $_POST['sum'], $_POST['info'], $_POST['date'], $_POST['task']);
           $files = $_FILES;
           $bills = Bill::all();
-          header("Location: ?controller=bills&action=show&id=".urlencode($_POST['id']));
+          $this->index();
         }
       }
 
@@ -52,9 +53,15 @@
         if (!isset($_GET['id'])) {
           return call('pages', 'error');
         }
+
         Bill::delete($_GET['id']);
+        $image = Image::getImages($_GET['id'], 2);
+        if(isset($image)){
+          Image::removepic($image[0]->id);
+        }
+
         $bills = Bill::all();
-        require_once('views/bills/index.php');
+        $this->index();
       }
     }
 ?>

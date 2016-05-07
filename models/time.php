@@ -60,7 +60,7 @@
       echo "<h1 class'warning'>Not logged in</h1>";
       return;
     }
-    require_once($_SERVER['DOCUMENT_ROOT'].'lib/validators.php');
+    require_once(dirname(__DIR__).'/lib/validators.php');
     $errors = [];
     $date1 = date_create($date);
     $date = date_format($date1, 'Y-m-d');

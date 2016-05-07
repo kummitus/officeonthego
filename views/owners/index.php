@@ -14,12 +14,12 @@
     <td>
       <?php echo $owner->email; ?>
     </td>
-  <td><a href='/?controller=owners&action=show&id=<?php echo $owner->id; ?>' class="trn">See manager</a></td></tr>
+  <td><a href='?controller=owners&action=show&id=<?php echo $owner->id; ?>' class="trn">See manager</a></td></tr>
 <?php } ?>
   </tbody>
 </table>
 <br>
 
 <?php if($_SESSION['adminlevel'] == 1){ ?>
-  <a href="/?controller=owners&action=form"><div class="btn btn-default trn">Create Manager</div></a>
+  <a href="?controller=owners&action=form"><div class="btn btn-default trn">Create Manager</div></a>
 <?php } ?>

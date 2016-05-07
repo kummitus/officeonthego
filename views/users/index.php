@@ -12,11 +12,11 @@
       }else{
         echo "no";
       }?></span></td>
-    <td><a href='/?controller=users&action=show&id=<?php echo $user->id; ?>' class="trn">See user</a></td>
+    <td><a href='?controller=users&action=show&id=<?php echo $user->id; ?>' class="trn">See user</a></td>
   </p>
 <?php }  ?>
   </tbody>
 </table>
 </div>
 <br>
-<a href="/?controller=users&action=form"><div class="btn btn-default trn">Create user</div></a>
+<a href="?controller=users&action=form"><div class="btn btn-default trn">Create user</div></a>

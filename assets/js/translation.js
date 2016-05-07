@@ -137,7 +137,7 @@ $(function() {
       fi: "Laskutusnumero"
     },
     "Manager": {
-      fi: "Isännöitisjä"
+      fi: "Isännöitsijä"
     },
     "See Place": {
       fi: "Katso kohde"
@@ -258,6 +258,9 @@ $(function() {
     },
     "Add image": {
       fi: "Lisää kuva"
+    },
+    "Search": {
+      fi: "Hae"
     }
 
   };

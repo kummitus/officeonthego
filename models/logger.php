@@ -13,6 +13,16 @@
 
     public static function create($user_id, $ip, $action) {
       $db = Db::getInstance();
+      date_default_timezone_set('Europe/Helsinki');
+      if(!isset($user_id)){
+        $user_id = 1;
+      }
+      if(!isset($ip)){
+        $ip = "127.0.0.1";
+      }
+      if(!isset($action)){
+        $action = "Unknon action";
+      }
       $date = date('Y-m-d');
       $time = date('H:i:s', time());
       try{

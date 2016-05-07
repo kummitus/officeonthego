@@ -21,10 +21,10 @@
   <td>
     <?php echo $time->t_id; ?>
   </td>
-  <td><a href='/?controller=times&action=show&id=<?php echo $time->id; ?>' class="trn">See time</a></td></tr>
+  <td><a href='?controller=times&action=show&id=<?php echo $time->id; ?>' class="trn">See time</a></td></tr>
 <?php }  ?>
   </tbody>
 </table>
 </div>
 <br>
-<a href="/?controller=times&action=form"><div class="btn btn-default trn">Create time</div></a>
+<a href="?controller=times&action=form"><div class="btn btn-default trn">Create time</div></a>

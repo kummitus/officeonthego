@@ -1,3 +1,6 @@
+<?php
+  date_default_timezone_set('Europe/Helsinki');
+ ?>
 <form method="post" action="?controller=times&action=create">
   <div class="form-group">
     <input type="number" class="form-control hidden" name="id" value="<?php echo $time->id; ?>">
@@ -6,7 +9,7 @@
     <label for="u_id" class="trn">User</label>
     <select name="u_id" class="form-control">
       <?php foreach($users as $user) { ?>
-        <option value="<?php echo $user->id; ?>" <?php if($user->id == $time->u_id) { echo "selected='selected'"; } ?>><?php echo $user->name; ?> </option>
+        <option value="<?php echo $user->id; ?>" <?php if(isset($time->u_id)){if($user->id == $time->u_id) { echo "selected='selected'"; }} ?>><?php echo $user->name; ?> </option>
       <?php } ?>
     </select>
   </div>

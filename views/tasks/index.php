@@ -16,7 +16,7 @@
   ?>
   <tr>
     <td>
-  <a href='/?controller=tasks&action=show&id=<?php echo $task->id; ?>' class="trn"><?php echo $task->name; ?></a>
+  <a href='?controller=tasks&action=show&id=<?php echo $task->id; ?>' class="trn"><?php echo $task->name; ?></a>
   </td>
   <td>
     <?php echo $task->g_id; ?>
@@ -24,8 +24,8 @@
   <td>
     <?php echo $task->p_id; ?> <span class="trn">hours</span>
   </td>
-  <td><a href='/?controller=tasks&action=show&id=<?php echo $task->id; ?>' class="trn btn btn-default">See task</a></td>
-  <td><a href='/?controller=tasks&action=toggleactivity&id=<?php echo $task->id; ?>' class="trn btn btn-warning">Toggle Activity</a></td>
+  <td><a href='?controller=tasks&action=show&id=<?php echo $task->id; ?>' class="trn btn btn-default">See task</a></td>
+  <td><a href='?controller=tasks&action=toggleactivity&id=<?php echo $task->id; ?>' class="trn btn btn-warning">Toggle Activity</a></td>
 </tr>
 <?php }
 }  ?>
@@ -51,7 +51,7 @@
   ?>
   <tr>
     <td>
-      <a href="/?controller=tasks&action=show&id=<?php echo $task->id; ?>" class="trn"><?php echo $task->name; ?></a>
+      <a href="?controller=tasks&action=show&id=<?php echo $task->id; ?>" class="trn"><?php echo $task->name; ?></a>
     </td>
     <td>
       <?php echo $task->g_id; ?>
@@ -59,8 +59,8 @@
     <td>
       <?php echo $task->p_id; ?>
     </td>
-    <td><a href="/?controller=tasks&action=show&id=<?php echo $task->id; ?>" class="trn btn btn-default">See task</a></td>
-    <td><a href="/?controller=tasks&action=toggleactivity&id=<?php echo $task->id; ?>" class="trn btn btn-warning">Toggle Activity</a></td>
+    <td><a href="?controller=tasks&action=show&id=<?php echo $task->id; ?>" class="trn btn btn-default">See task</a></td>
+    <td><a href="?controller=tasks&action=toggleactivity&id=<?php echo $task->id; ?>" class="trn btn btn-warning">Toggle Activity</a></td>
   </tr>
 <?php }
 }  ?>
@@ -70,5 +70,5 @@
 <br>
 
 <?php if(hasAdminRights($_SESSION)){ ?>
-<a href="/?controller=tasks&action=form"><div class="btn btn-default trn">Create task</div></a>
+<a href="?controller=tasks&action=form"><div class="btn btn-default trn">Create task</div></a>
 <?php } ?>

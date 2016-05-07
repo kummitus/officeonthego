@@ -1,7 +1,7 @@
 <form method="post" action="?controller=groups&action=create">
 
   <div class="form-group">
-    <input type="number" class="form-control hidden" name="id" value="<?php if($group) {
+    <input type="number" class="form-control hidden" name="id" value="<?php if(isset($group->id)) {
       echo $group->id;
     }else{
       echo "-1";
@@ -11,17 +11,17 @@
     <label class="trn">Admin</label>
     <select name="a_id" class="form-control">
       <?php foreach($users as $user) { ?>
-        <option value="<?php echo $user->id; ?>" <?php if($user->id == $group->a_id) { echo "selected='selected'"; } ?>><?php echo $user->name; ?> </option>
+        <option value="<?php echo $user->id; ?>" <?php if(isset($group->a_id)){ if($user->id == $group->a_id) { echo "selected='selected'"; } } ?>><?php echo $user->name; ?> </option>
       <?php } ?>
     </select>
   </div>
   <div class="form-group">
     <label class="trn">Name</label>
-    <input type="text" class="form-control" name="name" value="<?php echo $group->name; ?>">
+    <input type="text" class="form-control" name="name" value="<?php if(isset($group->name)){echo $group->name;} ?>">
   </div>
   <div class="form-group">
     <label class="trn">Info</label>
-    <input type="text" class="form-control" name="info" value="<?php echo $group->info; ?>">
+    <input type="text" class="form-control" name="info" value="<?php if(isset($group->info)){echo $group->info;} ?>">
   </div>
   <?php if(isset($group->id)) { ?>
     <div class="form-group">

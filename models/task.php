@@ -92,12 +92,32 @@
       return $list;
     }
 
-    public static function create($g_id, $p_id, $name, $info, $active) {
+    public static function findActive() {
+      if(!verifyLogin($_SESSION)){
+        return;
+      }
+      $list = [];
+      $db = Db::getInstance();
+      try{
+        $req = $db->prepare("SELECT * FROM tasks WHERE active=1");
+        $req->execute();
+        foreach($req->fetchAll() as $task) {
+          $list[] = new Task($task['id'], $task['g_id'], $task['p_id'], $task['name'], $task['info'], $task['active']);
+        }
+      }catch (PDOException $e) {
+        echo "<h1 class='warning'>Invalid operation in findGroupTasks!</h1>";
+      }
+
+
+      return $list;
+    }
+
+    public static function create($g_id, $p_id, $name, $info) {
       if(!verifyLogin($_SESSION)){
         return;
       }
       if(!isset($g_id) || !isset($p_id) || !isset($name) || !isset($info)){
-        
+
       }
 
       $db = Db::getInstance();

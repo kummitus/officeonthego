@@ -1,7 +1,7 @@
 <h1> Create/edit user</h1>
 <form method="post" action="?controller=users&action=create">
   <div class="form-group">
-    <input type="number" class="form-control hidden" name="id" value="<?php if(isset($user)){ echo $user->id;} ?>">
+    <input type="number" class="form-control hidden" name="id" value="<?php if(isset($user)){ echo $user->id;} else { echo 0;} ?>">
   </div>
   <div class="form-group">
     <label for="name" class="trn">Name</label>

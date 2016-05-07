@@ -12,18 +12,18 @@
     </div>
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
-        <li><a href='/' class="trn"><?php echo $_SESSION['username']; ?></a></li>
+        <li><a href='?controller=pages&action=home' class="trn"><?php if(isset($_SESSION['username'])){echo $_SESSION['username'];} ?></a></li>
           <?php if(isset($_SESSION['user'])){
-            if(hasAdminRights($user)){ ?>
-        <li><a href='/?controller=users&action=index' class="trn">Users</a></li>
-        <li><a href='/?controller=groups&action=index' class="trn">Groups</a></li>
+            if($_SESSION['adminlevel'] == 1){ ?>
+        <li><a href='?controller=users&action=index' class="trn">Users</a></li>
+        <li><a href='?controller=groups&action=index' class="trn">Groups</a></li>
             <?php } ?>
-        <li><a href='/?controller=places&action=index' class="trn">Places</a></li>
-        <li><a href='/?controller=tasks&action=index' class="trn">Tasks</a></li>
-        <li><a href='/?controller=times&action=index' class="trn">Times</a></li>
-        <li><a href='/?controller=bills&action=index' class="trn">Bills</a></li>
-        <li><a href='/?controller=owners&action=index' class="trn">Managers</a></li>
-        <li><a href='/?controller=users&action=logout' class="trn">Log Out</a></li>
+        <li><a href='?controller=places&action=index' class="trn">Places</a></li>
+        <li><a href='?controller=tasks&action=index' class="trn">Tasks</a></li>
+        <li><a href='?controller=times&action=index' class="trn">Times</a></li>
+        <li><a href='?controller=bills&action=index' class="trn">Bills</a></li>
+        <li><a href='?controller=owners&action=index' class="trn">Managers</a></li>
+        <li><a href='?controller=users&action=logout' class="trn">Log Out</a></li>
         <?php } ?>
       </ul>
     </div>

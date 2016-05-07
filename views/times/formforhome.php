@@ -1,16 +1,20 @@
+
+<?php
+  date_default_timezone_set('Europe/Helsinki');
+ ?>
 <h3 class="trn">Submit hours for current task</h3>
 <form method="post" action="?controller=times&action=create">
   <div class="form-group">
-    <label class="trn">Task</label>
-    <select name="t_id" id="t_id" class="form-control">
+    <label for="select-choice-1" class="select trn">Task</label>
+    <select name="t_id" id="select-choice-1" class="form-control" >
       <?php foreach($tasks as $task) { ?>
         <option value="<?php echo $task->id; ?>" <?php if($task->g_id == $task->g_id) { echo "selected='selected'"; } ?>><?php echo $task->name; ?> </option>
       <?php } ?>
     </select>
   </div>
   <div class="form-group">
-    <label for="membemrs[]" class="trn">Present</label>
-    <select name="members[]" multiple="" class="ui fluid dropdown">
+    <label for="select-choice-2" class="select trn">Present</label>
+    <select name="members[]" id="select-choice-2" multiple="multiple">
       <?php foreach($members as $member) { ?>
         <option value="<?php echo $member->id ?>" selected="selected"><?php echo $member->name ?></option>
       <?php } ?>
@@ -32,7 +36,6 @@
     <button type="submit" class="btn btn-primary trn">Add</button>
   </div>
 </form>
-
 
 <script>
 $(function() {

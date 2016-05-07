@@ -33,7 +33,7 @@
           $this->form();
           return;
         }
-        if(0 > $_POST['id']) {
+        if(0 > $_POST['id'] || !isset($_POST['id'])) {
           Group::create($_POST['a_id'], $_POST['name'], $_POST['info']);
           header("Location: ?controller=groups&action=index");
         } else {

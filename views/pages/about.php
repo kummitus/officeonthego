@@ -1,8 +1,8 @@
 Licenses and such<br>
 <br>
 Copyright Antti Häkli 2016<br>
-<br>
-Under MIT<br>
+Source code available at <a href="https://git.kummitus.ovh/kummitus/officeonthego">my personal gitlab</a><br>
+Following libraries are used and are licenced under MIT<br>
 <br>
 <a href="http://www.openxrest.com/translatejs/">TranslateJS</a> Manuel Fernandes 2013<br>
 <a href="http://anthonyterrien.com/knob/">jQuery Knob</a> Anthony Terrien 2012<br>

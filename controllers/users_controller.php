@@ -73,7 +73,7 @@
         $errors = User::create($_POST['name'], $_POST['password']);
         printerrors($errors);
         if(count($errors)>0){
-          require_once($_SERVER['DOCUMENT_ROOT'].'views/users/form.php');
+          require_once(dirname(__DIR__).'/views/users/form.php');
           return;
         }
         header("Location: ?controller=users&action=index");
@@ -81,7 +81,7 @@
         $errors = User::update($_POST['id'], $_POST['name'], $_POST['password'], 0);
         printerrors($errors);
         if(count($errors)>0){
-          require_once($_SERVER['DOCUMENT_ROOT'].'views/users/form.php');
+          require_once(dirname(__DIR__).'/views/users/form.php');
           $user = new User($_POST['id'], $_POST['name'], $_POST['password'], 0);
           return;
         }
@@ -95,10 +95,13 @@
     }
 
     public function handle_login() {
-
+      if(!isset($_POST['name']) || !isset($_POST['password'])){
+        header("Location: ?controller=pages&action=home");
+        return;
+      }
       $user = User::authenticate($_POST['name'], $_POST['password']);
       if(!$user){
-        header("Location: /");
+        header("Location: ");
       } else {
         $_SESSION['user'] = $user->id;
         $_SESSION['username'] = $user->name;
@@ -110,6 +113,7 @@
     public function logout() {
       $_SESSION['user'] = null;
       $_SESSION['username'] = null;
+      $_SESSION['adminlevel'] = null;
       session_unset();
       session_destroy();
       header("Location: ?controller=pages&action=home");
@@ -120,14 +124,13 @@
         echo "<h1 class'warning'>Not logged in</h1>";
         return;
       }
-      if(hasAdminRights($_SESSION)){
-        if($_SESSION['user'] != $user->id){
-          $user = User::find($_GET['id']);
-          if($user->adminlevel == 0){
-            User::update($user->id, $user->name, $user->password, 1);
-          }else{
-            User::update($user->id, $user->name, $user->password, 0);
-          }
+
+      if(($_SESSION['adminlevel'] == 1) && ($_SESSION['user'] != $_GET['id'])){
+        $user = User::find($_GET['id']);
+        if($user->adminlevel == 0){
+          User::toggleadmin($user->id, 1);
+        }else{
+          User::toggleadmin($user->id, 0);
         }
       }
       header("Location: ?controller=users&action=index");

@@ -1,6 +1,6 @@
 <?php
   function verifyLogin($status) {
-      require_once($_SERVER['DOCUMENT_ROOT']."models/logger.php");
+      require_once(dirname(__DIR__)."/models/logger.php");
       if(isset($status['user'])){
         return true;
       }else{
@@ -10,7 +10,7 @@
   }
 
   function hasAdminRights($status) {
-      require_once($_SERVER['DOCUMENT_ROOT']."models/logger.php");
+      require_once(dirname(__DIR__)."/models/logger.php");
       if($status['adminlevel'] == 1){
         return true;
       }else{

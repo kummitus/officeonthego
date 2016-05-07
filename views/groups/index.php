@@ -12,10 +12,10 @@
   <?php echo $group->name; ?>
   </td>
   <td>
-    <a href='/?controller=groups&action=show&id=<?php echo $group->id; ?>' class="trn btn btn-default">See group</a>
+    <a href='?controller=groups&action=show&id=<?php echo $group->id; ?>' class="trn btn btn-default">See group</a>
   </td>
   <td>
-    <a href='/?controller=groups&action=toggleactivity&id=<?php echo $group->id; ?>' class="trn btn btn-warning">Toggle Activity</a>
+    <a href='?controller=groups&action=toggleactivity&id=<?php echo $group->id; ?>' class="trn btn btn-warning">Toggle Activity</a>
   </td>
 </tr>
 <?php }
@@ -37,10 +37,10 @@
   <?php echo $group->name; ?>
   </td>
   <td>
-    <a href='/?controller=groups&action=show&id=<?php echo $group->id; ?>' class="trn  btn btn-default">See group</a>
+    <a href='?controller=groups&action=show&id=<?php echo $group->id; ?>' class="trn btn btn-default">See group</a>
   </td>
   <td>
-    <a href='/?controller=groups&action=toggleactivity&id=<?php echo $group->id; ?>' class="trn btn btn-warning">Toggle Activity</a>
+    <a href='?controller=groups&action=toggleactivity&id=<?php echo $group->id; ?>' class="trn btn btn-warning">Toggle Activity</a>
   </td>
 </tr>
 <?php }
@@ -48,4 +48,4 @@
   </tbody>
 </table>
 <br>
-<a href="/?controller=groups&action=form"><div class="btn btn-default trn">Create group</div></a>
+<a href="?controller=groups&action=form"><div class="btn btn-default trn">Create group</div></a>

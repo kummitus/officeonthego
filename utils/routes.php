@@ -20,6 +20,7 @@
         $controller = new UsersController();
       break;
       case 'tasks':
+        require_once('models/bill.php');
         require_once('models/image.php');
         require_once('models/membership.php');
         require_once('models/time.php');

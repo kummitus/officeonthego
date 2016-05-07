@@ -1,6 +1,8 @@
 <?php
-  include 'c3.php';
+
+  ob_start();
   session_start();
+  #include 'c3.php';
   require_once('utils/connection.php');
   require('lib/loginverification.php');
   require_once('views/pages/header.php');
@@ -13,4 +15,7 @@
     $action = 'home';
   }
   require_once('views/layout.php');
+  #phpinfo();
+
+  ob_end_flush();
 ?>

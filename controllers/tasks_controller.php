@@ -16,6 +16,7 @@
       $images = Image::getImages($id, 0);
       $task = Task::find($_GET['id']);
       $time = Time::getTaskHours($task->id);
+      $bills = Bill::getBillsByTask($id);
       require_once('views/tasks/show.php');
     }
 
@@ -36,12 +37,14 @@
         $this->form();
         return;
       }
-      if(!isset($_POST['id'])){
-        Task::create($_POST['g_id'], $_POST['p_id'], $_POST['name'], $_POST['info']);
-        header("Location: ?controller=tasks&action=index");
-      }else{
+      $id = 0;
+      $id = intval($_POST['id']);
+      if($id > 0){
         Task::update($_POST['id'], $_POST['g_id'], $_POST['p_id'], $_POST['name'], $_POST['info'], $_POST['active']);
-        header("Location: ?controller=tasks&action=show&id=".urlencode($_POST['id']));
+        $this->index();
+      }else{
+        Task::create($_POST['g_id'], $_POST['p_id'], $_POST['name'], $_POST['info']);
+        $this->index();
       }
     }
     public function delete() {
@@ -98,7 +101,9 @@
       allowedMethodCall($_SESSION);
 
       Image::removepic($_GET['picid']);
-      header("Location: ?controller=tasks&action=show&id=".$_GET['id']);
+
+      $this->show();
+
     }
 
   }
