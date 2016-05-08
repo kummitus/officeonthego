@@ -1,4 +1,4 @@
-## Office on the go
+﻿## Office on the go
 
 ### Introduction
 
@@ -12,8 +12,8 @@ The demo machine it’s primarily made to work includes Apache web server, backe
 
 [Documentation](https://github.com/kummitus/officeonthego/blob/master/doc/OfficeOnTheGoDoc.pdf)
 
-[Demo site] (https://kummitus.ovh)
+[Demo site] (https://office.kummitus.ovh)
 
 Demo credentials
- - Username: test
+ - Username: admin
  - Password: test
