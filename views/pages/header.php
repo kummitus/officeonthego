@@ -7,7 +7,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <h2>Office <small>on the road</small></h2>
+      <h2>Office <small>on the go</small></h2>
       <!-- <?php if(isset($user['user'])) { ?><a class="navbar-brand" href="<?php echo "?controller=pages&action=home"; ?>"><?php echo $user['username']; ?></a><?php } ?> -->
     </div>
     <div class="collapse navbar-collapse">
